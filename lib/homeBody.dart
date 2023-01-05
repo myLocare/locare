@@ -61,6 +61,12 @@ class _HomeBodyState extends State<HomeBody> {
                 GButton(
                   icon: Icons.home_outlined,
                   text: 'Home',
+                  onPressed: () {
+                    print("Home");
+                    // print the device's width and height
+                    print("Width: $width");
+                    print("Height: $height");
+                  },
                 ),
                 GButton(
                   icon: Icons.monetization_on_outlined,
