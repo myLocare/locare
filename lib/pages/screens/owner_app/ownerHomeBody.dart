@@ -1,26 +1,22 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:locare/pages/screens/userBody.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:locare/pages/screens/bookingsPage.dart';
+import 'package:locare/pages/screens/owner_app/available_places.dart';
+import 'package:locare/pages/screens/userBody.dart';
 
-class HomeBody extends StatefulWidget {
-  const HomeBody({super.key});
+class OwnerHomeBody extends StatefulWidget {
+  const OwnerHomeBody({super.key});
 
   @override
-  State<HomeBody> createState() => _HomeBodyState();
+  State<OwnerHomeBody> createState() => _OwnerHomeBodyState();
 }
 
 int _Index = 0;
-final List<Widget> _pages = [
-  UserBody(),
-  BookingsPage(),
-  // BookMarkPage(),
-  // ProfilePage()
-];
 
-class _HomeBodyState extends State<HomeBody> {
+final List<Widget> _pages = [available_places(), UserBody()];
+
+class _OwnerHomeBodyState extends State<OwnerHomeBody> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -70,15 +66,15 @@ class _HomeBodyState extends State<HomeBody> {
                 ),
                 GButton(
                   icon: Icons.monetization_on_outlined,
-                  text: 'Bookings',
+                  text: 'Reservations',
                 ),
                 GButton(
-                  icon: Icons.favorite_border_outlined,
-                  text: 'Favorites',
+                  icon: Icons.calendar_month_outlined,
+                  text: 'Schedules',
                 ),
                 GButton(
-                  icon: Icons.person_outline,
-                  text: 'Profile',
+                  icon: Icons.attach_money,
+                  text: 'Track Payments',
                 ),
               ],
             ),
