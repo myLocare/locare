@@ -31,11 +31,11 @@ class _UserBodyState extends State<UserBody> {
         ),
         child: Column(children: [
           Padding(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.fromLTRB(30, 30, 30, 20),
             child: searchBar(height: height),
           ),
           categoriesList(height: height, width: width),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
