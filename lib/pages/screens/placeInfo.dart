@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/animation/animation_controller.dart';
 import 'package:flutter/src/widgets/ticker_provider.dart';
+import 'package:locare/pages/screens/SelectDate.dart';
 import 'package:locare/pages/screens/favPage.dart';
 import 'package:locare/pages/screens/UserBody.dart';
 import 'package:photo_view/photo_view.dart';
@@ -54,12 +55,7 @@ class _PlaceInfoState extends State<PlaceInfo>
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.pop(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const UserBody(),
-                          ),
-                        );
+                        Navigator.pop(context);
                       },
                       child: const Icon(
                         Icons.arrow_back_ios,
@@ -97,7 +93,7 @@ class _PlaceInfoState extends State<PlaceInfo>
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const FavPage()),
+                  MaterialPageRoute(builder: (context) => const SelectDate()),
                 );
               },
               style: ElevatedButton.styleFrom(
