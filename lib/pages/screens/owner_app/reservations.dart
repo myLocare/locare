@@ -6,14 +6,14 @@ import 'package:locare/pages/screens/FavPage.dart';
 import 'package:locare/pages/screens/placeInfo.dart';
 import 'package:locare/pages/screens/userBody.dart';
 
-class available_places extends StatefulWidget {
-  const available_places({super.key});
+class reservations extends StatefulWidget {
+  const reservations({super.key});
 
   @override
-  State<available_places> createState() => _available_placesState();
+  State<reservations> createState() => _reservationsState();
 }
 
-class _available_placesState extends State<available_places> {
+class _reservationsState extends State<reservations> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -32,9 +32,39 @@ class _available_placesState extends State<available_places> {
         ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, height * 0.04, 0, height * 0.02),
+            padding: EdgeInsets.fromLTRB(0.0, height * 0.04, 0, height * 0.02),
             child: Text(
-              'Available Places',
+              'Up coming reservations',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          SizedBox(
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.fromLTRB(
+                  width * 0.05, 0, width * 0.0, height * 0.02),
+              scrollDirection: Axis.vertical,
+              children: [
+                reservation_container(
+                    context, "The summer resort - 26378", "Nov 20"),
+                reservation_container(
+                    context, "The summer resort - 26392", "Jan 23"),
+              ],
+            ),
+          ),
+          const Divider(
+            color: Color(0xF5F5F5F5),
+            height: 25,
+            thickness: 2,
+            indent: 0,
+            endIndent: 0,
+          ),
+          Padding(
+            padding:
+                EdgeInsets.fromLTRB(0.0, height * 0.01, 0.0, height * 0.02),
+            child: Text(
+              'Past reservations',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.left,
             ),
@@ -43,31 +73,13 @@ class _available_placesState extends State<available_places> {
             child: ListView(
               shrinkWrap: true,
               padding: EdgeInsets.fromLTRB(
-                  width * 0.099, 0, width * 0.0, height * 0.02),
+                  width * 0.05, 0, width * 0.0, height * 0.02),
               scrollDirection: Axis.vertical,
               children: [
-                availablePlaces(context, "Place 1"),
-                availablePlaces(context, "Place 2"),
-                availablePlaces(context, "Place 3"),
-                availablePlaces(context, "Place 4"),
-                availablePlaces(context, "Place 5"),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      width * 0.1, height * 0.01, width * 0.2, height * 0.01),
-                  child: FloatingActionButton(
-                    heroTag: null,
-                    elevation: 0,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const PlaceInfo()),
-                      );
-                    },
-                    backgroundColor: Color(0xF5F5F5F5),
-                    child: const Icon(Icons.add, color: Color(0xD9D9D9D9)),
-                  ),
-                ),
+                reservation_container(
+                    context, "The winter resort - 24378", "Nov 20"),
+                reservation_container(
+                    context, "The idk resort - 23485", "Jan 23"),
               ],
             ),
           ),
@@ -77,17 +89,34 @@ class _available_placesState extends State<available_places> {
   }
 }
 
-Container availablePlaces(
+Container reservation_container(
   BuildContext context,
-  String PlaceName,
+  String reservationData,
+  String reservationDate,
 ) {
   double width = MediaQuery.of(context).size.width;
   double height = MediaQuery.of(context).size.height;
   return Container(
     child: Row(
       children: [
+        Container(
+          width: width * 0.15,
+          height: height * 0.05,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Color(0xF5F5F5F5),
+          ),
+          child: Padding(
+            padding:
+                EdgeInsets.fromLTRB(width * 0.02, 0, width * 0.02, height * 0),
+            child: Center(
+                child: Text("$reservationDate", style: TextStyle(fontSize: 9))),
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.all(5.0),
+
+          // ignore: unnecessary_new
           child: new InkWell(
             onTap: () {
               Navigator.push(
@@ -106,18 +135,11 @@ Container availablePlaces(
               child: Padding(
                 padding: EdgeInsets.fromLTRB(
                     width * 0.055, 0, width * 0.055, height * 0),
-                child: Center(child: Text("$PlaceName")),
+                child: Center(child: Text("$reservationData")),
               ),
             ),
           ),
         ),
-        IconButton(
-          onPressed: (() => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PlaceInfo()),
-              )),
-          icon: const Icon(Icons.edit),
-        )
       ],
     ),
   );

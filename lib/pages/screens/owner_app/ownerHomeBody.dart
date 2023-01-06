@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:locare/pages/screens/owner_app/available_places.dart';
+import 'package:locare/pages/screens/owner_app/reservations.dart';
 import 'package:locare/pages/screens/userBody.dart';
 
 class OwnerHomeBody extends StatefulWidget {
@@ -14,7 +15,7 @@ class OwnerHomeBody extends StatefulWidget {
 
 int _Index = 0;
 
-final List<Widget> _pages = [available_places(), UserBody()];
+final List<Widget> _pages = [available_places(), reservations()];
 
 class _OwnerHomeBodyState extends State<OwnerHomeBody> {
   @override
@@ -39,7 +40,7 @@ class _OwnerHomeBodyState extends State<OwnerHomeBody> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             child: GNav(
-              gap: 8,
+              gap: 5,
               activeColor: Color(0xFF345EA8),
               backgroundColor: Color(0xFF345EA8),
               color: Color(0xFFFDFDFD),
@@ -74,7 +75,7 @@ class _OwnerHomeBodyState extends State<OwnerHomeBody> {
                 ),
                 GButton(
                   icon: Icons.attach_money,
-                  text: 'Track Payments',
+                  text: 'Payments',
                 ),
               ],
             ),
