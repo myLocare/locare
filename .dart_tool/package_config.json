@@ -15,7 +15,7 @@
     },
     {
       "name": "calendar_date_picker2",
-      "rootUri": "file:///Users/ahmedalnoori/Development/flutter/.pub-cache/hosted/pub.dartlang.org/calendar_date_picker2-0.3.6",
+      "rootUri": "file:///Users/yousefalahmed/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/calendar_date_picker2-0.3.6",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -314,7 +314,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-01-06T10:48:12.714600Z",
+  "generated": "2023-01-06T19:13:17.771402Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }
