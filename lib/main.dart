@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'homeBody.dart';
+import 'pages/homeBody.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {

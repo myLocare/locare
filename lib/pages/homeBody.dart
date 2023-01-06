@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:locare/UserBody.dart';
+import 'package:locare/pages/screens/userBody.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:locare/bookingsPage.dart';
+import 'package:locare/pages/screens/bookingsPage.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
