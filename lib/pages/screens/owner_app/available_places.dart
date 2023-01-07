@@ -20,7 +20,7 @@ class _available_placesState extends State<available_places> {
     double height = MediaQuery.of(context).size.height;
     return Stack(children: [
       Container(
-        padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         height: height * 0.92,
         width: width,
         decoration: const BoxDecoration(
@@ -43,17 +43,17 @@ class _available_placesState extends State<available_places> {
             child: ListView(
               shrinkWrap: true,
               padding: EdgeInsets.fromLTRB(
-                  width * 0.099, 0, width * 0.0, height * 0.02),
+                  width * 0.0, 0, width * 0.0, height * 0.02),
               scrollDirection: Axis.vertical,
               children: [
-                availablePlaces(context, "Place 1"),
-                availablePlaces(context, "Place 2"),
+                availablePlaces(context, "The Ghadeer Resort"),
+                availablePlaces(context, "The Ghadeer Resort"),
                 availablePlaces(context, "Place 3"),
                 availablePlaces(context, "Place 4"),
                 availablePlaces(context, "Place 5"),
                 Padding(
                   padding: EdgeInsets.fromLTRB(
-                      width * 0.1, height * 0.01, width * 0.2, height * 0.01),
+                      width * 0.2, height * 0.01, width * 0.2, height * 0.01),
                   child: FloatingActionButton(
                     heroTag: null,
                     elevation: 0,
@@ -88,6 +88,7 @@ Container availablePlaces(
       children: [
         Padding(
           padding: const EdgeInsets.all(5.0),
+          // ignore: unnecessary_new
           child: new InkWell(
             onTap: () {
               Navigator.push(
@@ -96,7 +97,7 @@ Container availablePlaces(
               );
             },
             child: Container(
-              width: width * 0.6,
+              width: width * 0.7,
               height: height * 0.05,
               //change container radius
               decoration: BoxDecoration(
@@ -106,18 +107,34 @@ Container availablePlaces(
               child: Padding(
                 padding: EdgeInsets.fromLTRB(
                     width * 0.055, 0, width * 0.055, height * 0),
-                child: Center(child: Text("$PlaceName")),
+                child: Center(
+                    child: Text(
+                  "$PlaceName",
+                  overflow: TextOverflow.fade,
+                )),
               ),
             ),
           ),
         ),
-        IconButton(
-          onPressed: (() => Navigator.push(
+        SizedBox(
+          width: width * 0.05,
+        ),
+        CircleAvatar(
+          radius: 20,
+          backgroundColor: Color(0xffF5F5F5),
+          child: IconButton(
+            icon: Icon(
+              Icons.edit,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const PlaceInfo()),
-              )),
-          icon: const Icon(Icons.edit),
-        )
+              );
+            },
+          ),
+        ),
       ],
     ),
   );
