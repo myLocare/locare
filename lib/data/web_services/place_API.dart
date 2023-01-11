@@ -19,19 +19,6 @@ class _PlaceAPIState extends State<PlaceAPI> {
   @override
   Widget build(BuildContext context) {
     CollectionReference place2 = FirebaseFirestore.instance.collection('place');
-    // return SizedBox(
-    //   child: StreamBuilder<QuerySnapshot>(
-    //       stream: place,
-    //       builder: (context, snapshot) {
-    //         if (!snapshot.hasData) {
-    //           return const Center(
-    //             child: CircularProgressIndicator(),
-    //           );
-    //         }
-    //         final data = snapshot.requireData;
-    //         return Text('${data.docs[0]['name']}');
-    //       }),
-    // );
 
     return FutureBuilder<DocumentSnapshot>(
       future: place2.doc('sBccS6o2mM9jGenqjBcY').get(),
