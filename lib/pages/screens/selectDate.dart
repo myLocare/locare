@@ -208,7 +208,7 @@ class _SelectDateState extends State<SelectDate> {
         setState(() {
           BoxDecoration(
             border: Border.all(
-              color: Colors.blue,
+              color: Color.fromARGB(255, 243, 33, 33),
               width: 2,
             ),
           );

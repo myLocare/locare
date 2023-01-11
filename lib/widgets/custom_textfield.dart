@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/basic.dart';
@@ -40,6 +42,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         children: [
           Text(widget.label,
               style: TextStyle(
+                height: 0.5,
                 color: Colors.white,
                 fontSize: MediaQuery.of(context).size.height * 0.025,
               )),
@@ -47,6 +50,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             // width: infinity,
             child: TextField(
               style: TextStyle(
+                // height: 2,
                 color: Colors.white,
                 fontSize: MediaQuery.of(context).size.height * 0.02,
               ),

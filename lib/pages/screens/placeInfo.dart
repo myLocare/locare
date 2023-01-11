@@ -242,13 +242,13 @@ class _PlaceInfoState extends State<PlaceInfo>
                   children: [
                     Row(children: const [
                       Icon(Icons.pool, color: Colors.black),
-                      Text('2  Pool',
+                      Text(' 2  Pool',
                           style: TextStyle(fontSize: 20, color: Colors.black),
                           textAlign: TextAlign.left),
                     ]),
                     Row(children: const [
                       Icon(Icons.restaurant, color: Colors.black),
-                      Text('1  Kitchen',
+                      Text(' 1  Kitchen',
                           style: TextStyle(fontSize: 20, color: Colors.black),
                           textAlign: TextAlign.left),
                     ]),
@@ -265,19 +265,19 @@ class _PlaceInfoState extends State<PlaceInfo>
                   children: [
                     Row(children: const [
                       Icon(Icons.tv, color: Colors.black),
-                      Text('3  Living Room',
+                      Text(' 3  Living Room',
                           style: TextStyle(fontSize: 20, color: Colors.black),
                           textAlign: TextAlign.left),
                     ]),
                     Row(children: const [
                       Icon(Icons.sports_soccer, color: Colors.black),
-                      Text('2  Play Ground',
+                      Text(' 2  Play Ground',
                           style: TextStyle(fontSize: 20, color: Colors.black),
                           textAlign: TextAlign.left),
                     ]),
                     Row(children: const [
                       Icon(Icons.local_fire_department, color: Colors.black),
-                      Text('2  Barbeque Area',
+                      Text(' 2  Barbeque Area',
                           style: TextStyle(fontSize: 20, color: Colors.black),
                           textAlign: TextAlign.left),
                     ]),

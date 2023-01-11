@@ -29,7 +29,7 @@ class _HomeBodyState extends State<HomeBody> {
       Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text("Locare"),
+          title: Center(child: Text("Locare")),
           backgroundColor: const Color(0xFF345EA8),
           elevation: 0,
         ),
@@ -62,10 +62,7 @@ class _HomeBodyState extends State<HomeBody> {
                   icon: Icons.home_outlined,
                   text: 'Home',
                   onPressed: () {
-                    print("Home");
                     // print the device's width and height
-                    print("Width: $width");
-                    print("Height: $height");
                   },
                 ),
                 GButton(
