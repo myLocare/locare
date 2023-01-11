@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>887492380478-kh6kmcfobtj3tk3prsemtm3t0s2gr0ap.apps.googleusercontent.com</string>
+	<string>1038013962840-k32btvddcbrnfr9ddusr0hq2o256dc99.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.887492380478-kh6kmcfobtj3tk3prsemtm3t0s2gr0ap</string>
+	<string>com.googleusercontent.apps.1038013962840-k32btvddcbrnfr9ddusr0hq2o256dc99</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDENsCPSztBhcmg-lNT9JT1NwuHFOWvd90</string>
+	<string>AIzaSyBAT8M3R6T8ZDRYmFaP88PxPLECMwEaGvs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>887492380478</string>
+	<string>1038013962840</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.locare</string>
 	<key>PROJECT_ID</key>
-	<string>locare-39fb7</string>
+	<string>locare-e09e6</string>
 	<key>STORAGE_BUCKET</key>
-	<string>locare-39fb7.appspot.com</string>
+	<string>locare-e09e6.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:887492380478:ios:f38b19a7af3f94dc2e8e6f</string>
+	<string>1:1038013962840:ios:5b4abbf90e33bc57b1882d</string>
 </dict>
 </plist>

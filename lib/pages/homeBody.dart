@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:locare/data/web_services/place_API.dart';
 import 'package:locare/pages/screens/userBody.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:locare/pages/screens/bookingsPage.dart';
@@ -16,7 +17,7 @@ int _Index = 0;
 final List<Widget> _pages = [
   UserBody(),
   BookingsPage(),
-  // BookMarkPage(),
+  PlaceAPI(),
   // ProfilePage()
 ];
 

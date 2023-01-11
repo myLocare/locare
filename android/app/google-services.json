@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1038013962840",
+    "project_id": "locare-e09e6",
+    "storage_bucket": "locare-e09e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038013962840:android:48643505cb20bbbeb1882d",
+        "android_client_info": {
+          "package_name": "com.example.locare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038013962840-oeje8tj3mcvjvf0gndskk02u5mak8s49.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL7mdVO5W3UYJayaSRV6cS_iUildxqc10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038013962840-oeje8tj3mcvjvf0gndskk02u5mak8s49.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1038013962840-k32btvddcbrnfr9ddusr0hq2o256dc99.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.locare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
