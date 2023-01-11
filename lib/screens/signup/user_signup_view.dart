@@ -70,7 +70,7 @@ class _UserSignUpViewState extends State<UserSignUpView> {
                       style: TextStyle(
                         height: 1,
                         color: Colors.white,
-                        fontSize: MediaQuery.of(context).size.height * 0.12,
+                        fontSize: MediaQuery.of(context).size.height * 0.1,
                         // fontWeight: FontWeight.bold
                       ),
                     ),
