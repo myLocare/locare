@@ -13,15 +13,15 @@ class PlaceAPI extends StatefulWidget {
 }
 
 class _PlaceAPIState extends State<PlaceAPI> {
-  final Stream<QuerySnapshot> place =
-      FirebaseFirestore.instance.collection('place').snapshots();
+  // final Stream<QuerySnapshot> place =
+  //     FirebaseFirestore.instance.collection('place').snapshots();
 
   @override
   Widget build(BuildContext context) {
     CollectionReference place2 = FirebaseFirestore.instance.collection('place');
 
     return FutureBuilder<DocumentSnapshot>(
-      future: place2.doc('sBccS6o2mM9jGenqjBcY').get(),
+      future: place2.doc('G6H3HhbHBEeplw3WGd3O').get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -32,7 +32,7 @@ class _PlaceAPIState extends State<PlaceAPI> {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
-          return Text("Full Name: ${data['name']}");
+          return Text("Place Name: ${data['name']}");
         }
 
         return Text("loading");

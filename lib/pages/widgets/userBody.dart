@@ -64,13 +64,14 @@ class _UserBodyState extends State<UserBody> {
                 child: ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) => listCard(
-                      context,
-                      snapshot.data!.docs[index]['img'],
-                      snapshot.data!.docs[index]['name'],
-                      snapshot.data!.docs[index]['area'],
-                      4.5,
-                      12,
-                      45),
+                    context,
+                    snapshot.data!.docs[index]['images'][0],
+                    snapshot.data!.docs[index]['name'],
+                    snapshot.data!.docs[index]['price'],
+                    snapshot.data!.docs[index]['rating'],
+                    12,
+                    50,
+                  ),
                 ),
               );
             },
@@ -81,7 +82,7 @@ class _UserBodyState extends State<UserBody> {
   }
 
   InkWell listCard(BuildContext context, String img, String name, String price,
-      double rating, int? reviews, int desFromYou) {
+      String rating, int reviews, int desFromYou) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return InkWell(
@@ -126,7 +127,7 @@ class _UserBodyState extends State<UserBody> {
               Row(
                 children: [
                   Text(
-                    rating.toString(),
+                    rating,
                     style: TextStyle(fontSize: 18),
                     textAlign: TextAlign.right,
                   ),
@@ -147,7 +148,7 @@ class _UserBodyState extends State<UserBody> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(price.toString() + " SAR",
+              Text("$price SAR",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

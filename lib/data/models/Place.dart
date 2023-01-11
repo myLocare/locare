@@ -9,11 +9,12 @@ class Place {
   bool isVerified;
   int placeID;
   int ownerID;
-  Review review;
+  late List<Review> reviews;
   List<Facility> facilities;
   int area;
   int price;
   String type;
+  double rating = 0.0;
 
   Place({
     required this.name,
@@ -23,11 +24,12 @@ class Place {
     required this.isVerified,
     required this.placeID,
     required this.ownerID,
-    required this.review,
+    List<Review>? reviews,
     required this.facilities,
     required this.area,
     required this.price,
     required this.type,
+    this.rating = 0.0,
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
@@ -39,13 +41,16 @@ class Place {
       isVerified: json['isVerified'],
       placeID: json['placeID'],
       ownerID: json['ownerID'],
-      review: Review.fromJson(json['review']),
+      reviews: json['reviews']
+          .map<Review>((review) => Review.fromJson(review))
+          .toList(),
       facilities: json['facilities']
           .map<Facility>((facility) => Facility.fromJson(facility))
           .toList(),
       area: json['area'],
       price: json['price'],
       type: json['type'],
+      rating: json['rating'],
     );
   }
 
@@ -57,10 +62,11 @@ class Place {
         'isVerified': isVerified,
         'placeID': placeID,
         'ownerID': ownerID,
-        'review': review,
+        'reviews': reviews,
         'facilities': facilities,
         'area': area,
         'price': price,
         'type': type,
+        'rating': rating,
       };
 }
