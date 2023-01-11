@@ -1,5 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+// listCard(context, 'assets/380569812.jpg', 'Albayat Resort',
+//     '1200', 4.5, 12, 45),
+// listCard(context, 'assets/380569812.jpg', 'Albayat Resort',
+//     '1200', 4.5, 12, 45),
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -39,23 +45,43 @@ class _UserBodyState extends State<UserBody> {
           categoriesList(height: height, width: width),
           const SizedBox(height: 10),
           Expanded(
-            child: ListView(
-              padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
-              scrollDirection: Axis.vertical,
-              children: [
-                listCard(context, 'assets/380569812.jpg', 'Albayat Resort',
-                    '1200', 4.5, 12, 45),
-                listCard(context, 'assets/380569812.jpg', 'Albayat Resort',
-                    '1200', 4.5, 12, 45),
-              ],
-            ),
-          ),
+              child: StreamBuilder(
+            stream: FirebaseFirestore.instance.collection('place').snapshots(),
+            builder: (context,
+                AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+              if (snapshot.hasError) {
+                return Text('Something went wrong');
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                child: ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (BuildContext context, int index) => listCard(
+                    context,
+                    snapshot.data!.docs[index]['images'][1],
+                    snapshot.data!.docs[index]['name'],
+                    snapshot.data!.docs[index]['price'].toDouble(),
+                    snapshot.data!.docs[index]['rating'].toDouble(),
+                    12,
+                    50,
+                  ),
+                ),
+              );
+            },
+          )),
         ]),
       ),
     );
   }
 
-  InkWell listCard(BuildContext context, String img, String name, String price,
+  InkWell listCard(BuildContext context, String img, String name, double price,
       double rating, int reviews, int desFromYou) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -81,7 +107,7 @@ class _UserBodyState extends State<UserBody> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
+              child: Image.network(
                 img,
                 fit: BoxFit.cover,
               ),
@@ -101,7 +127,7 @@ class _UserBodyState extends State<UserBody> {
               Row(
                 children: [
                   Text(
-                    rating.toString(),
+                    "$rating",
                     style: TextStyle(fontSize: 18),
                     textAlign: TextAlign.right,
                   ),
@@ -122,7 +148,7 @@ class _UserBodyState extends State<UserBody> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(price.toString() + " SAR",
+              Text("$price SAR",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

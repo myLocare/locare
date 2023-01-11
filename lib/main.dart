@@ -1,12 +1,17 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:locare/pages/screens/owner_app/ownerHomeBody.dart';
-import 'package:locare/pages/screens/placeInfo.dart';
+import 'package:locare/firebase_options.dart';
 import 'pages/homeBody.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    name: 'locare',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -27,7 +32,7 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: LoginView(),
+      home: HomeBody(),
     );
   }
 }

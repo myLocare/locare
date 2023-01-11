@@ -1,9 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:locare/pages/screens/userBody.dart';
+import 'package:locare/data/web_services/place_API.dart';
+import 'package:locare/pages/screens/login.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:locare/pages/screens/bookingsPage.dart';
+import 'package:locare/pages/widgets/userBody.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -16,7 +18,7 @@ int _Index = 0;
 final List<Widget> _pages = [
   UserBody(),
   BookingsPage(),
-  // BookMarkPage(),
+  PlaceAPI(),
   // ProfilePage()
 ];
 
@@ -89,7 +91,14 @@ class _HomeBodyState extends State<HomeBody> {
             height: height * 0.2,
             child: FloatingActionButton(
               backgroundColor: const Color(0xFF345EA8),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Login(),
+                  ),
+                );
+              },
               elevation: 0,
               child: CircleAvatar(
                 radius: width * 0.2,
