@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:locare/login/user/user_login_view.dart';
+import 'package:locare/pages/screens/owner_app/ownerHomeBody.dart';
+import 'package:locare/pages/screens/placeInfo.dart';
 import 'pages/homeBody.dart';
 import 'package:google_fonts/google_fonts.dart';
 

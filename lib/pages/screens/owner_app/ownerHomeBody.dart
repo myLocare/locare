@@ -1,26 +1,23 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:locare/pages/screens/userBody.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:locare/pages/screens/bookingsPage.dart';
+import 'package:locare/pages/screens/owner_app/available_places.dart';
+import 'package:locare/pages/screens/owner_app/reservations.dart';
+import 'package:locare/pages/screens/owner_app/schedules.dart';
 
-class HomeBody extends StatefulWidget {
-  const HomeBody({super.key});
+class OwnerHomeBody extends StatefulWidget {
+  const OwnerHomeBody({super.key});
 
   @override
-  State<HomeBody> createState() => _HomeBodyState();
+  State<OwnerHomeBody> createState() => _OwnerHomeBodyState();
 }
 
 int _Index = 0;
-final List<Widget> _pages = [
-  UserBody(),
-  BookingsPage(),
-  // BookMarkPage(),
-  // ProfilePage()
-];
 
-class _HomeBodyState extends State<HomeBody> {
+final List<Widget> _pages = [available_places(), reservations(), schedules()];
+
+class _OwnerHomeBodyState extends State<OwnerHomeBody> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -29,7 +26,7 @@ class _HomeBodyState extends State<HomeBody> {
       Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Center(child: Text("Locare")),
+          title: Text("Locare"),
           backgroundColor: const Color(0xFF345EA8),
           elevation: 0,
         ),
@@ -43,7 +40,7 @@ class _HomeBodyState extends State<HomeBody> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             child: GNav(
-              gap: 8,
+              gap: 5,
               activeColor: Color(0xFF345EA8),
               backgroundColor: Color(0xFF345EA8),
               color: Color(0xFFFDFDFD),
@@ -62,20 +59,23 @@ class _HomeBodyState extends State<HomeBody> {
                   icon: Icons.home_outlined,
                   text: 'Home',
                   onPressed: () {
+                    print("Home");
                     // print the device's width and height
+                    print("Width: $width");
+                    print("Height: $height");
                   },
                 ),
                 GButton(
                   icon: Icons.monetization_on_outlined,
-                  text: 'Bookings',
+                  text: 'Reservations',
                 ),
                 GButton(
-                  icon: Icons.favorite_border_outlined,
-                  text: 'Favorites',
+                  icon: Icons.calendar_month_outlined,
+                  text: 'Schedules',
                 ),
                 GButton(
-                  icon: Icons.person_outline,
-                  text: 'Profile',
+                  icon: Icons.attach_money,
+                  text: 'Payments',
                 ),
               ],
             ),
