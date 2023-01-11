@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/animation/animation_controller.dart';
 import 'package:flutter/src/widgets/ticker_provider.dart';
-import 'package:locare/pages/screens/SelectDate.dart';
-import 'package:locare/pages/screens/favPage.dart';
-import 'package:locare/pages/screens/UserBody.dart';
+import 'package:locare/screens/home/select_date.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -93,7 +91,7 @@ class _PlaceInfoState extends State<PlaceInfo>
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const SelectDate()),
+                  MaterialPageRoute(builder: (context) => SelectDate()),
                 );
               },
               style: ElevatedButton.styleFrom(

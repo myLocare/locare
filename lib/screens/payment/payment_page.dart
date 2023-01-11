@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:locare/pages/screens/paymentSuccess.dart';
+import 'package:locare/screens/payment/payment_success.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});

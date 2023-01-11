@@ -5,26 +5,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:locare/login/user/user_login_view.dart';
+import 'package:locare/screens/login/owner/owner_login_view.dart';
+import 'package:locare/screens/home_base.dart';
+import 'package:locare/screens/signup/user_signup_view.dart';
 import 'package:locare/widgets/custom_textfield.dart';
 
-import '../../widgets/custom_button.dart';
+import '../../../widgets/custom_button.dart';
 
-class OwnerLoginView extends StatefulWidget {
-  const OwnerLoginView({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<OwnerLoginView> createState() => _OwnerLoginViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _OwnerLoginViewState extends State<OwnerLoginView> {
-  final ownerEmailController = TextEditingController();
-  final ownerPasswordController = TextEditingController();
+class _LoginViewState extends State<LoginView> {
+  final userEmailController = TextEditingController();
+  final userPasswordController = TextEditingController();
   bool checkBoxValue = false;
   @override
   void dispose() {
-    ownerEmailController.dispose();
-    ownerPasswordController.dispose();
+    userEmailController.dispose();
+    userPasswordController.dispose();
 
     super.dispose();
   }
@@ -72,16 +74,20 @@ class _OwnerLoginViewState extends State<OwnerLoginView> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
+                    // make a line
+
                     CustomTextField(
                         label: 'Email',
                         hint: 'Enter your email',
                         isPassword: false,
-                        controller: ownerEmailController),
+                        controller: userEmailController),
+
                     CustomTextField(
                         label: 'Password',
                         hint: 'Enter your password',
                         isPassword: true,
-                        controller: ownerPasswordController),
+                        controller: userPasswordController),
+
                     Row(
                       children: [
                         // Text('data'),
@@ -115,7 +121,7 @@ class _OwnerLoginViewState extends State<OwnerLoginView> {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               // ---down here is the path to the forgot password page
-                              builder: (context) => const OwnerLoginView(),
+                              builder: (context) => const LoginView(),
                             ));
                           },
                           child: Text('Forgot Password?',
@@ -130,29 +136,38 @@ class _OwnerLoginViewState extends State<OwnerLoginView> {
                     CustomButton(
                       label: 'Sign In',
                       onPressed: () {
+                        // return homebody page
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const HomeBody()));
                         // signIn()
                       },
                     ),
                     RichText(
-                      text: TextSpan(
-                        text: 'Don\'t have an account yet? ',
+                        text: TextSpan(children: [
+                      TextSpan(
+                        text: 'Don\'t have an account yet?',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: MediaQuery.of(context).size.height * 0.017,
                         ),
-                        children: [
-                          TextSpan(
-                            recognizer: TapGestureRecognizer(),
-                            // ..onTap = widget.onClickedSignup,
-                            text: 'Sign Up',
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Color(0xffF9A826),
-                            ),
-                          )
-                        ],
                       ),
-                    ),
+                      WidgetSpan(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const UserSignUpView()));
+                          },
+                          child: Text(' Sign Up',
+                              style: TextStyle(
+                                color: Color(0xffF9A826),
+                                decoration: TextDecoration.underline,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.017,
+                              )),
+                        ),
+                      ),
+                    ])),
+
                     Row(children: [
                       Expanded(
                         child: Container(
@@ -241,10 +256,10 @@ class _OwnerLoginViewState extends State<OwnerLoginView> {
                         ),
                         onPressed: (() {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const LoginView()));
+                              builder: (context) => const OwnerLoginView()));
                         }),
                         child: Text(
-                          'Sign in as user',
+                          'Sign in as owner',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize:

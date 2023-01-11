@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:locare/pages/screens/owner_app/available_places.dart';
-import 'package:locare/pages/screens/owner_app/reservations.dart';
-import 'package:locare/pages/screens/owner_app/schedules.dart';
+import 'package:locare/screens/owner_app/available_places.dart';
+import 'package:locare/screens/owner_app/reservations.dart';
+import 'package:locare/screens/owner_app/schedules.dart';
 
 class OwnerHomeBody extends StatefulWidget {
   const OwnerHomeBody({super.key});

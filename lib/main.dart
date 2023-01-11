@@ -3,7 +3,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:locare/firebase_options.dart';
-import 'pages/homeBody.dart';
+import 'package:locare/screens/login/user/user_login_view.dart';
+import 'screens/home_base.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: HomeBody(),
+      home: LoginView(),
     );
   }
 }

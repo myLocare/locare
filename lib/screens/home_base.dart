@@ -2,10 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:locare/data/web_services/place_API.dart';
-import 'package:locare/pages/screens/login.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:locare/pages/screens/bookingsPage.dart';
-import 'package:locare/pages/widgets/userBody.dart';
+import 'package:locare/screens/bookings/bookings_page.dart';
+import 'package:locare/screens/home/user_home_view.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -92,12 +91,12 @@ class _HomeBodyState extends State<HomeBody> {
             child: FloatingActionButton(
               backgroundColor: const Color(0xFF345EA8),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Login(),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => Login(),
+                //   ),
+                // );
               },
               elevation: 0,
               child: CircleAvatar(

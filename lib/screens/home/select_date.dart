@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:locare/pages/screens/paymentPage.dart';
+import 'package:locare/screens/payment/payment_page.dart';
 
 class SelectDate extends StatefulWidget {
-  const SelectDate({super.key});
+  SelectDate({super.key});
 
   @override
   State<SelectDate> createState() => _SelectDateState();
@@ -13,6 +13,8 @@ class SelectDate extends StatefulWidget {
 
 class _SelectDateState extends State<SelectDate> {
   @override
+  bool selected = false;
+
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -206,12 +208,8 @@ class _SelectDateState extends State<SelectDate> {
       // on tap highlight
       onTap: () {
         setState(() {
-          BoxDecoration(
-            border: Border.all(
-              color: Color.fromARGB(255, 243, 33, 33),
-              width: 2,
-            ),
-          );
+          selected = !selected;
+          print(selected);
         });
       },
       child: Padding(
@@ -219,10 +217,17 @@ class _SelectDateState extends State<SelectDate> {
         child: Container(
           width: width * 0.4,
           height: height * 0.06,
-          decoration: BoxDecoration(
-            color: Color(0xFFEBEBF0),
-            borderRadius: BorderRadius.circular(16),
-          ),
+          decoration: selected
+              ? BoxDecoration(
+                  border: Border.all(
+                    color: Color.fromARGB(255, 243, 33, 33),
+                    width: 2,
+                  ),
+                )
+              : BoxDecoration(
+                  color: Color(0xFFEBEBF0),
+                  borderRadius: BorderRadius.circular(16),
+                ),
           child: Center(
             child: Text(
               time,

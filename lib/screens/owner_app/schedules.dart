@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:locare/pages/screens/FavPage.dart';
-import 'package:locare/pages/screens/placeInfo.dart';
-import 'package:locare/pages/screens/userBody.dart';
+import 'package:locare/screens/favorite/favorite_page.dart';
+import 'package:locare/screens/home/place_info.dart';
+import 'package:locare/screens/not_user_body.dart';
 
 class schedules extends StatefulWidget {
   const schedules({super.key});

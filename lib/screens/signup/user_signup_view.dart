@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:locare/login/owner/owner_login_view.dart';
-import 'package:locare/pages/homeBody.dart';
+import 'package:locare/screens/login/owner/owner_login_view.dart';
+import 'package:locare/screens/home_base.dart';
 import 'package:locare/widgets/custom_textfield.dart';
 
-import '../../widgets/custom_button.dart';
+import '../../../widgets/custom_button.dart';
 import '../login/user/user_login_view.dart';
 
 class UserSignUpView extends StatefulWidget {
