@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:locare/data/models/Admin.dart';
 import 'package:locare/data/models/Place.dart';
+import 'package:locare/screens/Admin/get_all_resorts.dart';
 
 class AddResort extends StatelessWidget {
   AddResort({super.key});
@@ -33,13 +34,35 @@ class AddResort extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
-          "Add Resort",
-          style: TextStyle(color: Colors.black, fontSize: 20),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
+          title: Text(
+            "Add Resort",
+            style: TextStyle(color: Colors.black, fontSize: 20),
+          ),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.logout,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.settings,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => GetAllPlaces()),
+                );
+              },
+            ),
+          ]),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
         child: SizedBox(

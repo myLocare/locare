@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:locare/screens/Admin/add_resort.dart';
 import 'package:locare/screens/bookings/bookings_page.dart';
+import 'package:locare/screens/favorite/favorite_page.dart';
 import 'package:locare/screens/home/user_home_view.dart';
 
 class HomeBody extends StatefulWidget {
@@ -18,7 +19,7 @@ int _Index = 0;
 final List<Widget> _pages = [
   UserBody(),
   BookingsPage(),
-  // PlaceAPI(),
+  FavPage(),
   // ProfilePage()
 ];
 

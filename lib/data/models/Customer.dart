@@ -1,7 +1,9 @@
+import 'package:locare/data/models/Place.dart';
 import 'package:locare/data/models/User.dart';
 
 class Customer extends User {
   int customerID;
+  List<Place> favoriteList;
 
   Customer({
     required this.customerID,
@@ -11,6 +13,7 @@ class Customer extends User {
     required String country,
     String? image,
     required String status,
+    this.favoriteList = const [],
   }) : super(
           name: name,
           email: email,
@@ -29,6 +32,9 @@ class Customer extends User {
       country: json['country'],
       image: json['image'],
       status: json['status'],
+      favoriteList: json['favoriteList']
+          .map<Place>((place) => Place.fromJson(place))
+          .toList(),
     );
   }
 
@@ -40,5 +46,18 @@ class Customer extends User {
         'country': country,
         'image': image,
         'status': status,
+        'favoriteList': favoriteList,
       };
+
+  void addFavorite(Place place) {
+    favoriteList.add(place);
+  }
+
+  void removeFavorite(Place place) {
+    favoriteList.remove(place);
+  }
+
+  List<Place> getFavoriteList() {
+    return favoriteList;
+  }
 }

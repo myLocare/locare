@@ -21,6 +21,22 @@ class Admin {
       'type': place.type,
       'rating': place.rating,
     });
-    print("DONE");
+    print("The place has been added");
+  }
+
+  Future<List<Place>> getPlace() async {
+    var val = await db.collection("place").get();
+    var documents = val.docs;
+    if (documents.length > 0) {
+      try {
+        return documents
+            .map((e) => Place.fromJson(Map<String, dynamic>.from(e.data())))
+            .toList();
+      } catch (e) {
+        print("Exception $e");
+        return [];
+      }
+    }
+    return [];
   }
 }
