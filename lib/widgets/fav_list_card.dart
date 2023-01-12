@@ -28,67 +28,86 @@ class FavCard extends StatelessWidget {
       onTap: () {},
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              width: width * 0.3,
-              height: height * 0.1,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 0,
+                blurRadius: 12,
+                offset: const Offset(0, 0), // changes position of shadow
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  // topRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(16),
-                  // bottomRight: Radius.circular(20),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: width * 0.3,
+                height: height * 0.1,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
                 ),
-                child: SizedBox(
-                  child: Image.network(
-                    img,
-                    fit: BoxFit.cover,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    // topRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(16),
+                    // bottomRight: Radius.circular(20),
+                  ),
+                  child: SizedBox(
+                    child: Image.network(
+                      img,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.left,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "$rating",
-                      style: TextStyle(fontSize: 12),
-                      textAlign: TextAlign.right,
-                    ),
-                    Icon(Icons.star, color: Colors.yellow),
-                  ],
-                ),
-                Text(
-                  "$desFromYou kilometers away",
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
-                  textAlign: TextAlign.left,
-                ),
-                Text("$price SAR",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    )),
-              ],
-            ),
-          ],
+              const SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.left,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "$rating",
+                        style: TextStyle(fontSize: 12),
+                        textAlign: TextAlign.right,
+                      ),
+                      Icon(Icons.star, color: Colors.yellow),
+                    ],
+                  ),
+                  Text(
+                    "$desFromYou kilometers away",
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                    textAlign: TextAlign.left,
+                  ),
+                  Text("$price SAR",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

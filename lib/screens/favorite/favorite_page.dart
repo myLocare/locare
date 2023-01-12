@@ -19,7 +19,7 @@ class _FavPageState extends State<FavPage> {
     double height = MediaQuery.of(context).size.height;
     return Container(
       width: width,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(50),
           topRight: Radius.circular(50),
