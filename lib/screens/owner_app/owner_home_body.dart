@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -15,7 +15,7 @@ class OwnerHomeBody extends StatefulWidget {
 
 int _Index = 0;
 
-final List<Widget> _pages = [available_places(), reservations(), schedules()];
+final List<Widget> _pages = [Available_places(), reservations(), schedules()];
 
 class _OwnerHomeBodyState extends State<OwnerHomeBody> {
   @override
@@ -40,7 +40,7 @@ class _OwnerHomeBodyState extends State<OwnerHomeBody> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             child: GNav(
-              gap: 5,
+              gap: 4,
               activeColor: Color(0xFF345EA8),
               backgroundColor: Color(0xFF345EA8),
               color: Color(0xFFFDFDFD),
@@ -58,12 +58,6 @@ class _OwnerHomeBodyState extends State<OwnerHomeBody> {
                 GButton(
                   icon: Icons.home_outlined,
                   text: 'Home',
-                  onPressed: () {
-                    print("Home");
-                    // print the device's width and height
-                    print("Width: $width");
-                    print("Height: $height");
-                  },
                 ),
                 GButton(
                   icon: Icons.monetization_on_outlined,

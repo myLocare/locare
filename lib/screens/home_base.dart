@@ -1,8 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:locare/data/web_services/place_API.dart';
+// import 'package:locare/data/web_services/place_API.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:locare/screens/Admin/add_resort.dart';
 import 'package:locare/screens/bookings/bookings_page.dart';
 import 'package:locare/screens/home/user_home_view.dart';
 
@@ -17,7 +18,7 @@ int _Index = 0;
 final List<Widget> _pages = [
   UserBody(),
   BookingsPage(),
-  PlaceAPI(),
+  // PlaceAPI(),
   // ProfilePage()
 ];
 
@@ -30,7 +31,7 @@ class _HomeBodyState extends State<HomeBody> {
       Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Center(child: Text("Locare")),
+          title: Text("Locare"),
           backgroundColor: const Color(0xFF345EA8),
           elevation: 0,
         ),
@@ -91,12 +92,12 @@ class _HomeBodyState extends State<HomeBody> {
             child: FloatingActionButton(
               backgroundColor: const Color(0xFF345EA8),
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => Login(),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddResort(),
+                  ),
+                );
               },
               elevation: 0,
               child: CircleAvatar(

@@ -65,7 +65,7 @@ class _UserBodyState extends State<UserBody> {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) => listCard(
                     context,
-                    snapshot.data!.docs[index]['images'][1],
+                    snapshot.data!.docs[index]['images'][0],
                     snapshot.data!.docs[index]['name'],
                     snapshot.data!.docs[index]['price'].toDouble(),
                     snapshot.data!.docs[index]['rating'].toDouble(),

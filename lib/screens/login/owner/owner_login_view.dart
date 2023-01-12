@@ -2,10 +2,9 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:locare/screens/login/user/user_login_view.dart';
+import 'package:locare/screens/owner_app/owner_home_body.dart';
 import 'package:locare/widgets/custom_textfield.dart';
 
 import '../../../widgets/custom_button.dart';
@@ -130,7 +129,9 @@ class _OwnerLoginViewState extends State<OwnerLoginView> {
                     CustomButton(
                       label: 'Sign In',
                       onPressed: () {
-                        // signIn()
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => OwnerHomeBody(),
+                        ));
                       },
                     ),
                     RichText(
