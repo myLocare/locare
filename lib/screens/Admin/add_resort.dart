@@ -154,7 +154,7 @@ class AddResort extends StatelessWidget {
                         facilities: [],
                         images: [_image.text],
                         isVerified: true,
-                        placeID: 1234,
+                        placeID: "1234",
                         price: 0,
                         rating: 0,
                         reviews: [],

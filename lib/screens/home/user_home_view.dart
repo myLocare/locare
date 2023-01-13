@@ -1,14 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
-// listCard(context, 'assets/380569812.jpg', 'Albayat Resort',
-//     '1200', 4.5, 12, 45),
-// listCard(context, 'assets/380569812.jpg', 'Albayat Resort',
-//     '1200', 4.5, 12, 45),
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:locare/data/web_services/place_service.dart';
 import 'package:locare/screens/home/place_info.dart';
+import 'package:favorite_button/favorite_button.dart';
+
+import '../../data/web_services/customer_service.dart';
 
 class UserBody extends StatefulWidget {
   const UserBody({super.key});
@@ -69,6 +68,7 @@ class _UserBodyState extends State<UserBody> {
                     snapshot.data!.docs[index]['rating'].toDouble(),
                     12,
                     50,
+                    snapshot.data!.docs[index].id,
                   ),
                 ),
               );
@@ -80,7 +80,7 @@ class _UserBodyState extends State<UserBody> {
   }
 
   InkWell listCard(BuildContext context, String img, String name, double price,
-      double rating, int reviews, int desFromYou) {
+      double rating, int reviews, int desFromYou, String placeID) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return InkWell(
@@ -144,13 +144,25 @@ class _UserBodyState extends State<UserBody> {
             ],
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("$price SAR",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  )),
+              FavoriteButton(
+                isFavorite: false,
+                iconSize: 40,
+                valueChanged: (isFavorite) {},
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: height * 0.007,
+                  ),
+                  Text("$price SAR",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ],
+              ),
             ],
           ),
           SizedBox(

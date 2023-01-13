@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:locare/data/models/Place.dart';
+import 'package:locare/data/web_services/place_service.dart';
 
 class BookingsPage extends StatefulWidget {
   const BookingsPage({super.key});
@@ -31,9 +34,7 @@ class _BookingsPageState extends State<BookingsPage> {
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(50)),
           ),
-          child: Column(children: [
-            //Write components here
-          ]),
+          child: Column(children: []),
         ),
       ),
     );

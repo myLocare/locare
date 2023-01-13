@@ -98,6 +98,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "favorite_button",
+      "rootUri": "file:///Users/ahmedalnoori/Development/flutter/.pub-cache/hosted/pub.dartlang.org/favorite_button-0.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "ffi",
       "rootUri": "file:///Users/ahmedalnoori/Development/flutter/.pub-cache/hosted/pub.dartlang.org/ffi-2.0.1",
       "packageUri": "lib/",
@@ -440,7 +446,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-01-11T13:30:02.290506Z",
+  "generated": "2023-01-12T14:25:48.599160Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }

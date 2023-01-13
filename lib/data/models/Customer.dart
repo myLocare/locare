@@ -2,17 +2,17 @@ import 'package:locare/data/models/Place.dart';
 import 'package:locare/data/models/User.dart';
 
 class Customer extends User {
-  int customerID;
-  List<Place> favoriteList;
+  String? customerID;
+  List<dynamic>? favoriteList;
 
   Customer({
-    required this.customerID,
-    required String name,
-    required String email,
-    required String phone,
-    required String country,
+    this.customerID,
+    String? name,
+    String? email,
+    String? phone,
+    String? country,
     String? image,
-    required String status,
+    String? status,
     this.favoriteList = const [],
   }) : super(
           name: name,
@@ -25,17 +25,14 @@ class Customer extends User {
 
   factory Customer.fromJson(Map<String, dynamic> json) {
     return Customer(
-      customerID: json['customerID'],
-      name: json['name'],
-      email: json['email'],
-      phone: json['phone'],
-      country: json['country'],
-      image: json['image'],
-      status: json['status'],
-      favoriteList: json['favoriteList']
-          .map<Place>((place) => Place.fromJson(place))
-          .toList(),
-    );
+        customerID: json['customerID'],
+        name: json['name'],
+        email: json['email'],
+        phone: json['phone'],
+        country: json['country'],
+        image: json['image'],
+        status: json['status'],
+        favoriteList: json['favoriteList']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -48,16 +45,4 @@ class Customer extends User {
         'status': status,
         'favoriteList': favoriteList,
       };
-
-  void addFavorite(Place place) {
-    favoriteList.add(place);
-  }
-
-  void removeFavorite(Place place) {
-    favoriteList.remove(place);
-  }
-
-  List<Place> getFavoriteList() {
-    return favoriteList;
-  }
 }

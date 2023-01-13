@@ -1,18 +1,18 @@
 abstract class User {
-  String name;
-  String email;
+  String? name;
+  String? email;
 
-  String phone;
-  String country;
+  String? phone;
+  String? country;
   String? image;
-  String status;
+  String? status;
 
   User({
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.country,
+    this.name,
+    this.email,
+    this.phone,
+    this.country,
     this.image,
-    required this.status,
+    this.status,
   });
 }

@@ -3,37 +3,38 @@ import 'package:locare/data/models/Facility.dart';
 import 'package:locare/data/models/Review.dart';
 
 class Place {
-  String name;
-  String description;
-  List<String> images;
-  String address;
-  bool isVerified;
-  int placeID;
-  String ownerID;
+  String? name;
+  String? description;
+  List<String>? images;
+  String? address;
+  bool? isVerified;
+  String? placeID;
+  String? ownerID;
   List<Review>? reviews;
-  List<Facility> facilities;
-  int area;
-  int price;
-  String type;
-  double rating = 0.0;
+  List<Facility>? facilities;
+  double? area;
+  double? price;
+  String? type;
+  double? rating = 0.0;
 
   Place({
-    required this.name,
-    required this.description,
-    required this.images,
-    required this.address,
-    required this.isVerified,
-    required this.placeID,
-    required this.ownerID,
+    this.name,
+    this.description,
+    this.images,
+    this.address,
+    this.isVerified,
+    this.placeID,
+    this.ownerID,
     List<Review>? reviews,
-    required this.facilities,
-    required this.area,
-    required this.price,
-    required this.type,
+    this.facilities,
+    this.area,
+    this.price,
+    this.type,
     this.rating = 0.0,
   });
 
   List<String> getImages() {
+    List<String> images = [];
     return images;
   }
 
@@ -97,50 +98,50 @@ class Place {
     return [];
   }
 
-  Future<Place> getPlace(int placeID) async {
-    var val = await FirebaseFirestore.instance
-        .collection("place")
-        .where("placeID", isEqualTo: placeID)
-        .get();
-    var documents = val.docs;
-    if (documents.length > 0) {
-      try {
-        return Place.fromJson(Map<String, dynamic>.from(documents[0].data()));
-      } catch (e) {
-        print("Exception $e");
-        return Place(
-          name: "",
-          description: "",
-          images: [],
-          address: "",
-          isVerified: false,
-          placeID: 0,
-          ownerID: "0",
-          reviews: [],
-          facilities: [],
-          area: 0,
-          price: 0,
-          type: "",
-          rating: 0.0,
-        );
-      }
-    }
-    return Place(
-      name: "",
-      description: "",
-      images: [],
-      address: "",
-      isVerified: false,
-      placeID: 0,
-      ownerID: "0",
-      reviews: [],
-      facilities: [],
-      area: 0,
-      price: 0,
-      type: "",
-      rating: 0.0,
-    );
-  }
+  // Future<Place> getPlace(int placeID) async {
+  //   var val = await FirebaseFirestore.instance
+  //       .collection("place")
+  //       .where("placeID", isEqualTo: placeID)
+  //       .get();
+  //   var documents = val.docs;
+  //   if (documents.length > 0) {
+  //     try {
+  //       return Place.fromJson(Map<String, dynamic>.from(documents[0].data()));
+  //     } catch (e) {
+  //       print("Exception $e");
+  //       return Place(
+  //         name: "",
+  //         description: "",
+  //         images: [],
+  //         address: "",
+  //         isVerified: false,
+  //         placeID: 0,
+  //         ownerID: "0",
+  //         reviews: [],
+  //         facilities: [],
+  //         area: 0,
+  //         price: 0,
+  //         type: "",
+  //         rating: 0.0,
+  //       );
+  //     }
+  //   }
+  //   return Place(
+  //     name: "",
+  //     description: "",
+  //     images: [],
+  //     address: "",
+  //     isVerified: false,
+  //     placeID: 0,
+  //     ownerID: "0",
+  //     reviews: [],
+  //     facilities: [],
+  //     area: 0,
+  //     price: 0,
+  //     type: "",
+  //     rating: 0.0,
+  //   );
+  // }
 
   Future<List<Place>> getPlaceByOwner(int ownerID) async {
     var val = await FirebaseFirestore.instance
