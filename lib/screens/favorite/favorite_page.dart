@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:locare/widgets/custom_button.dart';
 import 'package:locare/widgets/fav_list_card.dart';
 
 class FavPage extends StatefulWidget {
@@ -43,6 +44,7 @@ class _FavPageState extends State<FavPage> {
                 rating: 3.1,
                 desFromYou: 43,
                 price: 99999),
+            CustomButton(label: 'Go to favorie', onPressed: () => print(''))
           ]),
         ),
       ),

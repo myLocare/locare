@@ -65,7 +65,7 @@ class _LoginViewState extends State<LoginView> {
                     Text(
                       'Locare',
                       style: TextStyle(
-                        height: 1,
+                        height: MediaQuery.of(context).size.height * 0.0012,
                         color: Colors.white,
                         fontSize: MediaQuery.of(context).size.height * 0.1,
                         // fontWeight: FontWeight.bold

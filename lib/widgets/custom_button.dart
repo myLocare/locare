@@ -11,8 +11,9 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height * 0.04,
-          bottom: MediaQuery.of(context).size.height * 0.02),
+        top: MediaQuery.of(context).size.height * 0.04,
+        bottom: MediaQuery.of(context).size.height * 0.02,
+      ),
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.06,
         // infinite width
