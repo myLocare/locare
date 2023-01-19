@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:locare/data/repository/customer_rep.dart';
 import 'package:locare/data/web_services/place_service.dart';
 import 'package:locare/screens/home/place_info.dart';
 import 'package:favorite_button/favorite_button.dart';
@@ -17,6 +18,7 @@ class UserBody extends StatefulWidget {
 }
 
 class _UserBodyState extends State<UserBody> {
+  final String customerID = "ZykNyT0EtoA8M3ZNKT9L";
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -149,7 +151,14 @@ class _UserBodyState extends State<UserBody> {
               FavoriteButton(
                 isFavorite: false,
                 iconSize: 40,
-                valueChanged: (isFavorite) {},
+                valueChanged: (isFavorite) {
+                  print('Is Favorite : $isFavorite');
+                  if (isFavorite) {
+                    addPlaceToFavList(customerID, placeID);
+                  } else {
+                    removePlaceFromFavList(customerID, placeID);
+                  }
+                },
               ),
               Column(
                 children: [

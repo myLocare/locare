@@ -34,7 +34,9 @@ class _BookingsPageState extends State<BookingsPage> {
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(50)),
           ),
-          child: Column(children: []),
+          child: Column(children: [
+            
+          ]),
         ),
       ),
     );
