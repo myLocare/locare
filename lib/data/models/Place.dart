@@ -1,3 +1,5 @@
+import 'package:locare/screens/owner_app/reservations.dart';
+
 class Place {
   String name;
   String description;
@@ -11,6 +13,7 @@ class Place {
   double price;
   String type;
   double rating = 0.0;
+  List<String>? reservationList = [];
 
   Place({
     required this.name,
@@ -25,6 +28,7 @@ class Place {
     required this.price,
     required this.type,
     required this.rating,
+    this.reservationList,
   });
 
   Place.fromJson(Map<String, dynamic> json)
@@ -39,6 +43,7 @@ class Place {
         area = json['area'].toDouble(),
         price = json['price'].toDouble(),
         type = json['type'],
+        reservationList = List<String>.from(json['reservationList']),
         rating = json['rating'].toDouble();
 
   Map<String, dynamic> toJSON() => {
@@ -53,6 +58,7 @@ class Place {
         'area': area,
         'price': price,
         'type': type,
+        'reservationList': reservationList,
         'rating': rating,
       };
 }

@@ -157,6 +157,7 @@ class AddResort extends StatelessWidget {
                         price: 0,
                         rating: 0,
                         reviews: [],
+                        reservationList: [],
                       );
                       Admin.admin.addPlace(tempPlace);
                     },

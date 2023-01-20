@@ -1,37 +1,48 @@
 class Reservation {
-  int reservationID;
-  int placeID;
-  int customerID;
-  DateTime date;
+  String placeID;
+  String customerID;
+  DateTime dateOfReservation;
+  DateTime dateOfCheckIn;
+  DateTime dateOfCheckOut;
   String paymentMethod;
   String status;
+  double amountPaid;
 
   Reservation({
-    required this.reservationID,
     required this.placeID,
     required this.customerID,
-    required this.date,
+    required this.dateOfReservation,
+    required this.dateOfCheckIn,
+    required this.dateOfCheckOut,
     required this.paymentMethod,
     required this.status,
+    required this.amountPaid,
   });
 
   factory Reservation.fromJson(Map<String, dynamic> json) {
     return Reservation(
-      reservationID: json['reservationID'],
       placeID: json['placeID'],
       customerID: json['customerID'],
-      date: DateTime.parse(json['date']),
+      dateOfReservation: DateTime.fromMillisecondsSinceEpoch(
+          json['dateOfReservation'].millisecondsSinceEpoch),
+      dateOfCheckIn: DateTime.fromMillisecondsSinceEpoch(
+          json['dateOfCheckIn'].millisecondsSinceEpoch),
+      dateOfCheckOut: DateTime.fromMillisecondsSinceEpoch(
+          json['dateOfCheckOut'].millisecondsSinceEpoch),
       paymentMethod: json['paymentMethod'],
       status: json['status'],
+      amountPaid: json['amountPaid'].toDouble(),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'reservationID': reservationID,
         'placeID': placeID,
         'customerID': customerID,
-        'date': date.toIso8601String(),
+        'dateOfReservation': dateOfReservation,
+        'dateOfCheckIn': dateOfCheckIn,
+        'dateOfCheckOut': dateOfCheckOut,
         'paymentMethod': paymentMethod,
         'status': status,
+        'amountPaid': amountPaid,
       };
 }

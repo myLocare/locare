@@ -3,17 +3,19 @@ import 'package:locare/data/models/User.dart';
 
 class Customer extends User {
   String? customerID;
-  List<dynamic>? favoriteList;
+  List<dynamic> favoriteList;
+  List<dynamic> reservationList;
 
   Customer({
     this.customerID,
-    String? name,
-    String? email,
+    required String name,
+    required String email,
     String? phone,
     String? country,
     String? image,
     String? status,
-    this.favoriteList = const [],
+    required this.favoriteList,
+    required this.reservationList,
   }) : super(
           name: name,
           email: email,
@@ -32,7 +34,8 @@ class Customer extends User {
         country: json['country'],
         image: json['image'],
         status: json['status'],
-        favoriteList: json['favoriteList']);
+        favoriteList: List<dynamic>.from(json['favoriteList']),
+        reservationList: List<dynamic>.from(json['reservationList']));
   }
 
   Map<String, dynamic> toJson() => {
@@ -44,5 +47,6 @@ class Customer extends User {
         'image': image,
         'status': status,
         'favoriteList': favoriteList,
+        'reservationList': reservationList,
       };
 }

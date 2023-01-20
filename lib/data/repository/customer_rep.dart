@@ -22,8 +22,7 @@ Future<List<Place>> getPlaceObjectList(String uid) async {
   favList.forEach((element) async {
     DocumentSnapshot placeDoc = await place.doc(element).get();
     if (placeDoc.exists) {
-      favPlaceList
-          .add(Place.fromJson(placeDoc.data() as Map<String, dynamic?>));
+      favPlaceList.add(Place.fromJson(placeDoc.data() as Map<String, dynamic>));
     }
   });
   return favPlaceList;
