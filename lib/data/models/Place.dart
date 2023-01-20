@@ -34,7 +34,7 @@ class Place {
         address = json['address'],
         isVerified = json['isVerified'],
         ownerID = json['ownerID'],
-        reviews = json['reviews'],
+        reviews = List<String>.from(json['reviews']),
         facilities = json['facilities'],
         area = json['area'].toDouble(),
         price = json['price'].toDouble(),

@@ -12,7 +12,6 @@ Future<List<String>> getFavListIdsByCustomerID(String uid) async {
   List<String> favIdList = [];
   await customer.doc(uid).get().then((value) {
     favIdList = List.from(value['favoriteList']);
-    print(favIdList);
   });
   return favIdList;
 }
@@ -23,8 +22,8 @@ Future<List<Place>> getPlaceObjectList(String uid) async {
   favList.forEach((element) async {
     DocumentSnapshot placeDoc = await place.doc(element).get();
     if (placeDoc.exists) {
-      favPlaceList.add(Place.fromJson(placeDoc.data() as Map<String, dynamic>));
-      print(favPlaceList);
+      favPlaceList
+          .add(Place.fromJson(placeDoc.data() as Map<String, dynamic?>));
     }
   });
   return favPlaceList;

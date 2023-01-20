@@ -3,13 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/animation/animation_controller.dart';
 import 'package:flutter/src/widgets/ticker_provider.dart';
+import 'package:locare/data/models/Place.dart';
+import 'package:locare/data/repository/place_rep.dart';
+import 'package:locare/data/web_services/customer_service.dart';
 import 'package:locare/screens/home/select_date.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class PlaceInfo extends StatefulWidget {
-  const PlaceInfo({super.key});
-
+  PlaceInfo({super.key, required this.place});
+  String customerID = "ZykNyT0EtoA8M3ZNKT9L";
+  Place place;
   @override
   State<PlaceInfo> createState() => _PlaceInfoState();
 }
@@ -130,18 +134,13 @@ class _PlaceInfoState extends State<PlaceInfo>
             scrollDirection: Axis.horizontal,
           ),
           items: [
-            Image(
-              image: const AssetImage('assets/380569812.jpg'),
-              fit: BoxFit.cover,
-            ),
-            Image(
-              image: const AssetImage('assets/380569812.jpg'),
-              fit: BoxFit.cover,
-            ),
-            Image(
-              image: const AssetImage('assets/380569812.jpg'),
-              fit: BoxFit.cover,
-            ),
+            for (var i = 0; i < widget.place.images.length; i++)
+              Container(
+                width: width,
+                child: PhotoView(
+                  imageProvider: NetworkImage(widget.place.images[i]),
+                ),
+              ),
           ],
         )
       ],
@@ -156,17 +155,29 @@ class _PlaceInfoState extends State<PlaceInfo>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Albayat Resort',
+            Text(
+              widget.place.name,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.left,
             ),
             Row(
-              children: const [
-                Text('4.5'),
-                Icon(Icons.star, color: Colors.yellow),
+              children: [
                 Text(
-                  '12 reviews',
+                  widget.place.rating.toString(),
+                  style: TextStyle(fontSize: 18),
+                  textAlign: TextAlign.left,
+                ),
+                widget.place.rating >= 1
+                    ? const Icon(
+                        Icons.star,
+                        color: Colors.yellow,
+                      )
+                    : const Icon(
+                        Icons.star_border,
+                        color: Colors.yellow,
+                      ),
+                Text(
+                  "${widget.place.reviews?.length.toString()} reviews",
                   style: TextStyle(fontSize: 14),
                   textAlign: TextAlign.right,
                 ),
@@ -176,7 +187,7 @@ class _PlaceInfoState extends State<PlaceInfo>
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             Text('45 kilometers away ',
                 style: TextStyle(fontSize: 18, color: Colors.grey),
                 textAlign: TextAlign.left),
@@ -192,23 +203,23 @@ class _PlaceInfoState extends State<PlaceInfo>
                 height: height * 0.01,
               ),
               Row(
-                children: const [
+                children: [
                   Icon(Icons.location_on, color: Colors.black54),
-                  Text(' Hai Alshati, Dammam',
+                  Text(widget.place.address,
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                       textAlign: TextAlign.left),
                 ],
               ),
               Row(
-                children: const [
+                children: [
                   Icon(Icons.space_bar, color: Colors.black54),
-                  Text(' 1000m2',
+                  Text('${widget.place.area} m²',
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                       textAlign: TextAlign.left),
                 ],
               ),
               Row(
-                children: const [
+                children: [
                   Icon(Icons.people, color: Colors.black54),
                   Text(' Families and Singles',
                       style: TextStyle(fontSize: 18, color: Colors.grey),
@@ -326,8 +337,8 @@ class _PlaceInfoState extends State<PlaceInfo>
           style: TextStyle(fontSize: 24),
           textAlign: TextAlign.left,
         ),
-        const Text(
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        Text(
+          widget.place.description,
           style: TextStyle(fontSize: 18),
         ),
         Divider(
