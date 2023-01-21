@@ -1,28 +1,31 @@
 import 'dart:math';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class CustomTextField extends StatefulWidget {
-  CustomTextField(
+class CustomTextFormField extends StatefulWidget {
+  CustomTextFormField(
       {required this.label,
       required this.hint,
       required this.isPassword,
       required this.controller,
+      // required this.validator,
       super.key});
   final String label;
   final String hint;
   final bool isPassword;
   final TextEditingController controller;
+  // final String Function(String?) validator;
 
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool _isHiddenPassword = true;
   bool isEyeCrossed = false;
   Icon eyeIcon = const Icon(
@@ -54,6 +57,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 color: Colors.white,
                 fontSize: MediaQuery.of(context).size.height * 0.02,
               ),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: widget.isPassword
+                  ? (value) => value != null && value.length < 6
+                      ? "Enter min 6 chars"
+                      : null
+                  : (value) => value != null && !EmailValidator.validate(value)
+                      ? "Enter valid email"
+                      : null,
               controller: widget.controller,
               obscureText: widget.isPassword ? _isHiddenPassword : false,
               decoration: InputDecoration(

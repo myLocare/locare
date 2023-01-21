@@ -72,15 +72,17 @@ class _OwnerLoginViewState extends State<OwnerLoginView> {
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
                     CustomTextField(
-                        label: 'Email',
-                        hint: 'Enter your email',
-                        isPassword: false,
-                        controller: ownerEmailController),
+                      label: 'Email',
+                      hint: 'Enter your email',
+                      isPassword: false,
+                      controller: ownerEmailController,
+                    ),
                     CustomTextField(
-                        label: 'Password',
-                        hint: 'Enter your password',
-                        isPassword: true,
-                        controller: ownerPasswordController),
+                      label: 'Password',
+                      hint: 'Enter your password',
+                      isPassword: true,
+                      controller: ownerPasswordController,
+                    ),
                     Row(
                       children: [
                         // Text('data'),
