@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:locare/data/models/Place.dart';
 import 'package:locare/data/models/Reservation.dart';
 import 'package:locare/data/web_services/place_service.dart';
-import 'package:locare/data/web_services/reservation_service.dart';
 import 'package:locare/widgets/booking_card.dart';
 
 class BookingsPage extends StatefulWidget {
@@ -16,12 +15,6 @@ class BookingsPage extends StatefulWidget {
 
 class _BookingsPageState extends State<BookingsPage> {
   String customerID = "ZykNyT0EtoA8M3ZNKT9L";
-  late Future<List<Reservation>> getRes;
-  @override
-  void initState() {
-    super.initState();
-    getRes = getReservationObjectList(customerID);
-  }
 
   @override
   Widget build(BuildContext context) {
