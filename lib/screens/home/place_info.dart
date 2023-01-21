@@ -1,15 +1,22 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/animation/animation_controller.dart';
-import 'package:flutter/src/widgets/ticker_provider.dart';
+import 'package:locare/data/models/FacilitiesModels/BarbequeArea.dart';
+import 'package:locare/data/models/FacilitiesModels/LivingRoom.dart';
+import 'package:locare/data/models/FacilitiesModels/PlayGround.dart';
+import 'package:locare/data/models/FacilitiesModels/Kitchen.dart';
+import 'package:locare/data/models/FacilitiesModels/Pool.dart';
+import 'package:locare/data/models/FacilitiesModels/wifi.dart';
+import 'package:locare/data/models/Facility.dart';
+import 'package:locare/data/models/Place.dart';
 import 'package:locare/screens/home/select_date.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class PlaceInfo extends StatefulWidget {
-  const PlaceInfo({super.key});
-
+  PlaceInfo({super.key, required this.place});
+  String customerID = "ZykNyT0EtoA8M3ZNKT9L";
+  Place place;
   @override
   State<PlaceInfo> createState() => _PlaceInfoState();
 }
@@ -48,8 +55,9 @@ class _PlaceInfoState extends State<PlaceInfo>
                 toolbarHeight: 0,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 80, 0, 0),
+                padding: const EdgeInsets.fromLTRB(20, 80, 20, 0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -58,6 +66,24 @@ class _PlaceInfoState extends State<PlaceInfo>
                       child: const Icon(
                         Icons.arrow_back_ios,
                         color: Colors.white,
+                      ),
+                    ),
+                    // favorite button
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      child: GestureDetector(
+                        onTap: () {
+                          // setState(() {
+                          //   widget.place.isFavorite =
+                          //       !widget.place.isFavorite;
+                          // });
+                        },
+                        child: Icon(
+                          // widget.place.isFavorite
+                          // ? Icons.favorite
+                          Icons.favorite_border,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],
@@ -109,8 +135,8 @@ class _PlaceInfoState extends State<PlaceInfo>
             ),
 
             //price
-            const Text(
-              '1200 SAR/Period',
+            Text(
+              '${widget.place.price} SAR/Period',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.right,
             ),
@@ -130,18 +156,13 @@ class _PlaceInfoState extends State<PlaceInfo>
             scrollDirection: Axis.horizontal,
           ),
           items: [
-            Image(
-              image: const AssetImage('assets/380569812.jpg'),
-              fit: BoxFit.cover,
-            ),
-            Image(
-              image: const AssetImage('assets/380569812.jpg'),
-              fit: BoxFit.cover,
-            ),
-            Image(
-              image: const AssetImage('assets/380569812.jpg'),
-              fit: BoxFit.cover,
-            ),
+            for (var i = 0; i < widget.place.images.length; i++)
+              Container(
+                width: width,
+                child: PhotoView(
+                  imageProvider: NetworkImage(widget.place.images[i]),
+                ),
+              ),
           ],
         )
       ],
@@ -149,6 +170,7 @@ class _PlaceInfoState extends State<PlaceInfo>
   }
 
   ListView placeContent(double height, double width) {
+    var keys = widget.place.facilities!.keys;
     return ListView(
       padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
       scrollDirection: Axis.vertical,
@@ -156,17 +178,29 @@ class _PlaceInfoState extends State<PlaceInfo>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Albayat Resort',
+            Text(
+              widget.place.name,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.left,
             ),
             Row(
-              children: const [
-                Text('4.5'),
-                Icon(Icons.star, color: Colors.yellow),
+              children: [
                 Text(
-                  '12 reviews',
+                  widget.place.rating.toString(),
+                  style: TextStyle(fontSize: 18),
+                  textAlign: TextAlign.left,
+                ),
+                widget.place.rating >= 1
+                    ? const Icon(
+                        Icons.star,
+                        color: Colors.yellow,
+                      )
+                    : const Icon(
+                        Icons.star_border,
+                        color: Colors.yellow,
+                      ),
+                Text(
+                  "${widget.place.reviews?.length.toString()} reviews",
                   style: TextStyle(fontSize: 14),
                   textAlign: TextAlign.right,
                 ),
@@ -176,7 +210,7 @@ class _PlaceInfoState extends State<PlaceInfo>
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             Text('45 kilometers away ',
                 style: TextStyle(fontSize: 18, color: Colors.grey),
                 textAlign: TextAlign.left),
@@ -192,23 +226,23 @@ class _PlaceInfoState extends State<PlaceInfo>
                 height: height * 0.01,
               ),
               Row(
-                children: const [
+                children: [
                   Icon(Icons.location_on, color: Colors.black54),
-                  Text(' Hai Alshati, Dammam',
+                  Text(widget.place.address,
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                       textAlign: TextAlign.left),
                 ],
               ),
               Row(
-                children: const [
+                children: [
                   Icon(Icons.space_bar, color: Colors.black54),
-                  Text(' 1000m2',
+                  Text('${widget.place.area} m²',
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                       textAlign: TextAlign.left),
                 ],
               ),
               Row(
-                children: const [
+                children: [
                   Icon(Icons.people, color: Colors.black54),
                   Text(' Families and Singles',
                       style: TextStyle(fontSize: 18, color: Colors.grey),
@@ -224,63 +258,45 @@ class _PlaceInfoState extends State<PlaceInfo>
           indent: 20,
           endIndent: 20,
         ),
+        // Facilities section
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               'Facilities',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.left,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(children: const [
-                      Icon(Icons.pool, color: Colors.black),
-                      Text(' 2  Pool',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                          textAlign: TextAlign.left),
-                    ]),
-                    Row(children: const [
-                      Icon(Icons.restaurant, color: Colors.black),
-                      Text(' 1  Kitchen',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                          textAlign: TextAlign.left),
-                    ]),
-                    Row(children: const [
-                      Icon(Icons.wifi, color: Colors.black),
-                      Text(' Free Wifi',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                          textAlign: TextAlign.left),
-                    ]),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(children: const [
-                      Icon(Icons.tv, color: Colors.black),
-                      Text(' 3  Living Room',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                          textAlign: TextAlign.left),
-                    ]),
-                    Row(children: const [
-                      Icon(Icons.sports_soccer, color: Colors.black),
-                      Text(' 2  Play Ground',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                          textAlign: TextAlign.left),
-                    ]),
-                    Row(children: const [
-                      Icon(Icons.local_fire_department, color: Colors.black),
-                      Text(' 2  Barbeque Area',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                          textAlign: TextAlign.left),
-                    ]),
-                  ],
-                ),
+            GridView(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 25,
+                childAspectRatio: 5,
+              ),
+              children: <Widget>[
+                if (keys.contains("Pool"))
+                  getFacilityCard(Pool(
+                      numberOfItems: widget.place.facilities!["Pool"] ?? 0)),
+                if (keys.contains("LivingRoom"))
+                  getFacilityCard(LivingRoom(
+                      numberOfItems:
+                          widget.place.facilities!["LivingRoom"] ?? 0)),
+                if (keys.contains("Kitchen"))
+                  getFacilityCard(Kitchen(
+                      numberOfItems: widget.place.facilities!["Kitchen"] ?? 0)),
+                if (keys.contains("Wifi"))
+                  getFacilityCard(Wifi(
+                      numberOfItems: widget.place.facilities!["Wifi"] ?? 0)),
+                if (keys.contains("BarbequeArea"))
+                  getFacilityCard(BarbequeArea(
+                      numberOfItems:
+                          widget.place.facilities!["BarbequeArea"] ?? 0)),
+                if (keys.contains("PlayGround"))
+                  getFacilityCard(PlayGround(
+                      numberOfItems:
+                          widget.place.facilities!["PlayGround"] ?? 0))
               ],
             ),
           ],
@@ -326,8 +342,8 @@ class _PlaceInfoState extends State<PlaceInfo>
           style: TextStyle(fontSize: 24),
           textAlign: TextAlign.left,
         ),
-        const Text(
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        Text(
+          widget.place.description,
           style: TextStyle(fontSize: 18),
         ),
         Divider(
@@ -346,4 +362,20 @@ class _PlaceInfoState extends State<PlaceInfo>
       ],
     );
   }
+}
+
+Container getFacilityCard(Facility facility) {
+  return Container(
+    child: Row(
+      children: [
+        facility.icon ?? const Icon(Icons.error),
+        Text(" " + facility.numberOfItems.toString() + " ",
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+        Text(
+          facility.name ?? 'Error',
+          style: const TextStyle(fontSize: 14),
+        )
+      ],
+    ),
+  );
 }

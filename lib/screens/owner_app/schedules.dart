@@ -36,7 +36,7 @@ class _schedulesState extends State<schedules> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
             padding: EdgeInsets.fromLTRB(0, height * 0.04, 0, height * 0.02),
-            child: Text(
+            child: const Text(
               'Choose a place',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.left,
@@ -66,29 +66,26 @@ Padding placeScheduleCard(
   double height = MediaQuery.of(context).size.height;
   return Padding(
     padding: const EdgeInsets.all(8.0),
-    child: Container(
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => SelectPeriod(PlaceName: PlaceName)),
-          );
-        },
-        child: Container(
-          width: width * 0.7,
-          height: height * 0.05,
-          //change container radius
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Color(0xF5F5F5F5),
-          ),
-          child: Center(
-              child: Text(
-            "$PlaceName",
-            overflow: TextOverflow.fade,
-          )),
+    child: new InkWell(
+      onTap: () {
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const PlaceInfo()),
+        // );
+      },
+      child: Container(
+        width: width * 0.7,
+        height: height * 0.05,
+        //change container radius
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: const Color(0xF5F5F5F5),
         ),
+        child: Center(
+            child: Text(
+          PlaceName,
+          overflow: TextOverflow.fade,
+        )),
       ),
     ),
   );

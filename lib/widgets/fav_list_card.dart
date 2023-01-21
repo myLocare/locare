@@ -3,31 +3,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:locare/data/models/Place.dart';
+import 'package:locare/screens/home/place_info.dart';
 
 class FavCard extends StatelessWidget {
   const FavCard({
     super.key,
-    required this.img,
-    required this.name,
-    required this.rating,
-    required this.desFromYou,
-    required this.price,
+    required this.place,
   });
 
-  final String img;
-  final String name;
-  final double rating;
-  final double desFromYou;
-  final int price;
+  final Place place;
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PlaceInfo(
+              place: place,
+            ),
+          ),
+        );
+      },
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -69,7 +72,7 @@ class FavCard extends StatelessWidget {
                   ),
                   child: SizedBox(
                     child: Image.network(
-                      img,
+                      place!.images[0],
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -80,14 +83,14 @@ class FavCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    place!.name,
                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.left,
                   ),
                   Row(
                     children: [
                       Text(
-                        "$rating",
+                        "${place!.rating.toDouble()}",
                         style: TextStyle(fontSize: 12),
                         textAlign: TextAlign.right,
                       ),
@@ -95,11 +98,11 @@ class FavCard extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "$desFromYou kilometers away",
+                    "${place!.area.toDouble()} m²",
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                     textAlign: TextAlign.left,
                   ),
-                  Text("$price SAR",
+                  Text("${place!.price.toDouble()} SAR",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,

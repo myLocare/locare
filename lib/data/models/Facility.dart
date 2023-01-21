@@ -1,25 +1,24 @@
+import 'package:flutter/material.dart';
+
 class Facility {
-  String name;
-  String description;
-  String icon;
+  String? name = 'Facility';
+  Widget? icon = Icon(Icons.home, color: Colors.black);
+  int numberOfItems;
 
   Facility({
-    required this.name,
-    required this.description,
-    required this.icon,
+    this.name,
+    required this.numberOfItems,
   });
 
   factory Facility.fromJson(Map<String, dynamic> json) {
     return Facility(
       name: json['name'],
-      description: json['description'],
-      icon: json['icon'],
+      numberOfItems: json['numberOfItems'],
     );
   }
 
   Map<String, dynamic> toJson() => {
         'name': name,
-        'description': description,
-        'icon': icon,
+        'numberOfItems': numberOfItems,
       };
 }

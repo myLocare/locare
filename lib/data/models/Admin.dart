@@ -12,7 +12,6 @@ class Admin {
       'images': place.images,
       'address': place.address,
       'isVerified': place.isVerified,
-      'placeID': place.placeID,
       'ownerID': place.ownerID,
       'reviews': place.reviews,
       'facilities': place.facilities,

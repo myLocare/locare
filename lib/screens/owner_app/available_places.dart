@@ -54,11 +54,11 @@ class _Available_placesState extends State<Available_places> {
                   heroTag: null,
                   elevation: 0,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PlaceInfo()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => const PlaceInfo()),
+                    // );
                   },
                   backgroundColor: Color(0xF5F5F5F5),
                   child: const Icon(Icons.add, color: Color(0xD9D9D9D9)),
@@ -86,10 +86,10 @@ Container availablePlaces(
           // ignore: unnecessary_new
           child: new InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PlaceInfo()),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const PlaceInfo()),
+              // );
             },
             child: Container(
               width: width * 0.7,
@@ -123,10 +123,10 @@ Container availablePlaces(
               color: Colors.black,
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PlaceInfo()),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const PlaceInfo()),
+              // );
             },
           ),
         ),

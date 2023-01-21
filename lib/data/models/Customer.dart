@@ -2,18 +2,20 @@ import 'package:locare/data/models/Place.dart';
 import 'package:locare/data/models/User.dart';
 
 class Customer extends User {
-  int customerID;
-  List<Place> favoriteList;
+  String? customerID;
+  List<dynamic> favoriteList;
+  List<dynamic> reservationList;
 
   Customer({
-    required this.customerID,
+    this.customerID,
     required String name,
     required String email,
-    required String phone,
-    required String country,
+    String? phone,
+    String? country,
     String? image,
-    required String status,
-    this.favoriteList = const [],
+    String? status,
+    required this.favoriteList,
+    required this.reservationList,
   }) : super(
           name: name,
           email: email,
@@ -25,17 +27,15 @@ class Customer extends User {
 
   factory Customer.fromJson(Map<String, dynamic> json) {
     return Customer(
-      customerID: json['customerID'],
-      name: json['name'],
-      email: json['email'],
-      phone: json['phone'],
-      country: json['country'],
-      image: json['image'],
-      status: json['status'],
-      favoriteList: json['favoriteList']
-          .map<Place>((place) => Place.fromJson(place))
-          .toList(),
-    );
+        customerID: json['customerID'],
+        name: json['name'],
+        email: json['email'],
+        phone: json['phone'],
+        country: json['country'],
+        image: json['image'],
+        status: json['status'],
+        favoriteList: List<dynamic>.from(json['favoriteList']),
+        reservationList: List<dynamic>.from(json['reservationList']));
   }
 
   Map<String, dynamic> toJson() => {
@@ -47,17 +47,6 @@ class Customer extends User {
         'image': image,
         'status': status,
         'favoriteList': favoriteList,
+        'reservationList': reservationList,
       };
-
-  void addFavorite(Place place) {
-    favoriteList.add(place);
-  }
-
-  void removeFavorite(Place place) {
-    favoriteList.remove(place);
-  }
-
-  List<Place> getFavoriteList() {
-    return favoriteList;
-  }
 }

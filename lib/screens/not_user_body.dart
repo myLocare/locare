@@ -61,12 +61,12 @@ class _UserBodyState extends State<UserBody> {
     double height = MediaQuery.of(context).size.height;
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const PlaceInfo(),
-          ),
-        );
+        //   Navigator.push(
+        //     context,
+        //   //   MaterialPageRoute(
+        //   //     // builder: (context) => PlaceInfo(),
+        //   //   ),
+        //   // );
       },
       child: Column(
         children: [

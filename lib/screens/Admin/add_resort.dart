@@ -151,13 +151,13 @@ class AddResort extends StatelessWidget {
                         address: _address.text,
                         area: 1,
                         type: _type.text,
-                        facilities: [],
+                        facilities: {},
                         images: [_image.text],
                         isVerified: true,
-                        placeID: 1234,
                         price: 0,
                         rating: 0,
                         reviews: [],
+                        reservationList: [],
                       );
                       Admin.admin.addPlace(tempPlace);
                     },

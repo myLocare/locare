@@ -51,6 +51,7 @@ dependencies:
   flutter_time_picker_spinner: ^2.0.0
   progressive_time_picker: ^0.0.7
   email_validator: ^2.1.17
+  favorite_button: ^0.0.4
 
 dev_dependencies:
   flutter_test:

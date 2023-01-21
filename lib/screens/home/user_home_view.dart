@@ -1,14 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
-// listCard(context, 'assets/380569812.jpg', 'Albayat Resort',
-//     '1200', 4.5, 12, 45),
-// listCard(context, 'assets/380569812.jpg', 'Albayat Resort',
-//     '1200', 4.5, 12, 45),
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:locare/data/models/Place.dart';
+import 'package:locare/data/repository/customer_rep.dart';
+import 'package:locare/data/web_services/place_service.dart';
 import 'package:locare/screens/home/place_info.dart';
+import 'package:favorite_button/favorite_button.dart';
+
+import '../../data/web_services/customer_service.dart';
 
 class UserBody extends StatefulWidget {
   const UserBody({super.key});
@@ -18,6 +19,7 @@ class UserBody extends StatefulWidget {
 }
 
 class _UserBodyState extends State<UserBody> {
+  final String customerID = "ZykNyT0EtoA8M3ZNKT9L";
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -63,12 +65,8 @@ class _UserBodyState extends State<UserBody> {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) => listCard(
                     context,
-                    snapshot.data!.docs[index]['images'][0],
-                    snapshot.data!.docs[index]['name'],
-                    snapshot.data!.docs[index]['price'].toDouble(),
-                    snapshot.data!.docs[index]['rating'].toDouble(),
-                    12,
-                    50,
+                    Place.fromJson(snapshot.data!.docs[index].data()),
+                    snapshot.data!.docs[index].id,
                   ),
                 ),
               );
@@ -79,8 +77,7 @@ class _UserBodyState extends State<UserBody> {
     );
   }
 
-  InkWell listCard(BuildContext context, String img, String name, double price,
-      double rating, int reviews, int desFromYou) {
+  InkWell listCard(BuildContext context, Place place, String placeID) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return InkWell(
@@ -88,7 +85,7 @@ class _UserBodyState extends State<UserBody> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const PlaceInfo(),
+            builder: (context) => PlaceInfo(place: place),
           ),
         );
       },
@@ -106,7 +103,7 @@ class _UserBodyState extends State<UserBody> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
-                img,
+                place.images[0],
                 fit: BoxFit.cover,
               ),
             ),
@@ -118,14 +115,14 @@ class _UserBodyState extends State<UserBody> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                name,
+                place.name,
                 style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.left,
               ),
               Row(
                 children: [
                   Text(
-                    "$rating",
+                    "${place.rating}",
                     style: TextStyle(fontSize: 18),
                     textAlign: TextAlign.right,
                   ),
@@ -137,20 +134,39 @@ class _UserBodyState extends State<UserBody> {
           Row(
             children: [
               Text(
-                "$desFromYou kilometers away",
+                "${place.rating} kilometers away",
                 style: TextStyle(fontSize: 17, color: Colors.grey),
                 textAlign: TextAlign.left,
               ),
             ],
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("$price SAR",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  )),
+              FavoriteButton(
+                isFavorite: false,
+                iconSize: 40,
+                valueChanged: (isFavorite) {
+                  print('Is Favorite : $isFavorite');
+                  if (isFavorite) {
+                    addPlaceToFavList(customerID, placeID);
+                  } else {
+                    removePlaceFromFavList(customerID, placeID);
+                  }
+                },
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: height * 0.007,
+                  ),
+                  Text("${place.price} SAR",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ],
+              ),
             ],
           ),
           SizedBox(

@@ -69,7 +69,9 @@ class _HomeBodyState extends State<HomeBody> {
                   icon: Icons.home_outlined,
                   text: 'Home',
                   onPressed: () {
-                    // print the device's width and height
+                    if (mounted) {
+                      setState(() {});
+                    }
                   },
                 ),
                 GButton(
