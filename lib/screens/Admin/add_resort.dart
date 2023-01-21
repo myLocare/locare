@@ -151,7 +151,7 @@ class AddResort extends StatelessWidget {
                         address: _address.text,
                         area: 1,
                         type: _type.text,
-                        facilities: [],
+                        facilities: {},
                         images: [_image.text],
                         isVerified: true,
                         price: 0,

@@ -20,6 +20,7 @@ class _GetAllPlacesState extends State<GetAllPlaces> {
   @override
   void dispose() {
     _getSearch.dispose();
+    super.dispose();
   }
 
   @override

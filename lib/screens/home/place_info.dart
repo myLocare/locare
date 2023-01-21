@@ -1,8 +1,17 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/animation/animation_controller.dart';
 import 'package:flutter/src/widgets/ticker_provider.dart';
+import 'package:locare/data/models/FacilitiesModels/BarbequeArea.dart';
+import 'package:locare/data/models/FacilitiesModels/LivingRoom.dart';
+import 'package:locare/data/models/FacilitiesModels/PlayGround.dart';
+import 'package:locare/data/models/FacilitiesModels/Kitchen.dart';
+import 'package:locare/data/models/FacilitiesModels/Pool.dart';
+import 'package:locare/data/models/FacilitiesModels/wifi.dart';
+import 'package:locare/data/models/Facility.dart';
 import 'package:locare/data/models/Place.dart';
 import 'package:locare/data/repository/place_rep.dart';
 import 'package:locare/data/web_services/customer_service.dart';
@@ -148,6 +157,7 @@ class _PlaceInfoState extends State<PlaceInfo>
   }
 
   ListView placeContent(double height, double width) {
+    var keys = widget.place.facilities!.keys;
     return ListView(
       padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
       scrollDirection: Axis.vertical,
@@ -241,57 +251,38 @@ class _PlaceInfoState extends State<PlaceInfo>
             const Text(
               'Facilities',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.left,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(children: const [
-                      Icon(Icons.pool, color: Colors.black),
-                      Text(' 2  Pool',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                          textAlign: TextAlign.left),
-                    ]),
-                    Row(children: const [
-                      Icon(Icons.restaurant, color: Colors.black),
-                      Text(' 1  Kitchen',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                          textAlign: TextAlign.left),
-                    ]),
-                    Row(children: const [
-                      Icon(Icons.wifi, color: Colors.black),
-                      Text(' Free Wifi',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                          textAlign: TextAlign.left),
-                    ]),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(children: const [
-                      Icon(Icons.tv, color: Colors.black),
-                      Text(' 3  Living Room',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                          textAlign: TextAlign.left),
-                    ]),
-                    Row(children: const [
-                      Icon(Icons.sports_soccer, color: Colors.black),
-                      Text(' 2  Play Ground',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                          textAlign: TextAlign.left),
-                    ]),
-                    Row(children: const [
-                      Icon(Icons.local_fire_department, color: Colors.black),
-                      Text(' 2  Barbeque Area',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                          textAlign: TextAlign.left),
-                    ]),
-                  ],
-                ),
+            GridView(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 30,
+                childAspectRatio: 5,
+              ),
+              children: <Widget>[
+                if (keys.contains("Pool"))
+                  getFacilityCard(Pool(
+                      numberOfItems: widget.place.facilities!["Pool"] ?? 0)),
+                if (keys.contains("LivingRoom"))
+                  getFacilityCard(LivingRoom(
+                      numberOfItems:
+                          widget.place.facilities!["LivingRoom"] ?? 0)),
+                if (keys.contains("Kitchen"))
+                  getFacilityCard(Kitchen(
+                      numberOfItems: widget.place.facilities!["Kitchen"] ?? 0)),
+                if (keys.contains("Wifi"))
+                  getFacilityCard(Wifi(
+                      numberOfItems: widget.place.facilities!["Wifi"] ?? 0)),
+                if (keys.contains("BarbequeArea"))
+                  getFacilityCard(BarbequeArea(
+                      numberOfItems:
+                          widget.place.facilities!["BarbequeArea"] ?? 0)),
+                if (keys.contains("PlayGround"))
+                  getFacilityCard(PlayGround(
+                      numberOfItems:
+                          widget.place.facilities!["PlayGround"] ?? 0))
               ],
             ),
           ],
@@ -357,4 +348,20 @@ class _PlaceInfoState extends State<PlaceInfo>
       ],
     );
   }
+}
+
+Container getFacilityCard(Facility facility) {
+  return Container(
+    child: Row(
+      children: [
+        facility.icon ?? const Icon(Icons.error),
+        Text(" " + facility.numberOfItems.toString() + " ",
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+        Text(
+          facility.name ?? 'Error',
+          style: const TextStyle(fontSize: 14),
+        )
+      ],
+    ),
+  );
 }
