@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,7 +29,7 @@ class ProfileView extends StatelessWidget {
             builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
               if (snapshot.hasData) {
                 return Text(
-                  ('Name: ${snapshot.data!.get('name')}\nCity: ${snapshot.data!.get('city')}\nPhone Number: ${snapshot.data!.get('phoneNumber')}'),
+                  ('ID: ${user.uid}\nEmail: ${user.email}\nName: ${snapshot.data!.get('name')}\nCity: ${snapshot.data!.get('city')}\nPhone Number: ${snapshot.data!.get('phoneNumber')}'),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
                 );
@@ -35,16 +37,6 @@ class ProfileView extends StatelessWidget {
                 return Text('Loading...');
               }
             },
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            child: Text(
-              ('ID: ${user.uid}\nEmail: ${user.email}\nName:'),
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.left,
-            ),
           ),
           SizedBox(
             height: 20,
