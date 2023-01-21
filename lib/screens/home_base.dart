@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:locare/data/web_services/place_API.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -7,6 +8,8 @@ import 'package:locare/screens/Admin/add_resort.dart';
 import 'package:locare/screens/bookings/bookings_page.dart';
 import 'package:locare/screens/favorite/favorite_page.dart';
 import 'package:locare/screens/home/user_home_view.dart';
+
+import 'profile/user_profile.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -20,19 +23,20 @@ final List<Widget> _pages = [
   UserBody(),
   BookingsPage(),
   FavPage(),
-  // ProfilePage()
+  ProfileView()
 ];
 
 class _HomeBodyState extends State<HomeBody> {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Stack(children: [
       Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text("Locare"),
+          title: Text("Locare ${user.email}"),
           backgroundColor: const Color(0xFF345EA8),
           elevation: 0,
         ),

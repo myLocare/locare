@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_interpolations
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:locare/screens/favorite/favorite_page.dart';
 import 'package:locare/screens/home/place_info.dart';
 import 'package:locare/screens/not_user_body.dart';
+import 'package:locare/screens/owner_app/schedules/select_periods.dart';
 
 class schedules extends StatefulWidget {
   const schedules({super.key});
@@ -64,11 +67,12 @@ Padding placeScheduleCard(
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
-      child: new InkWell(
+      child: InkWell(
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const PlaceInfo()),
+            MaterialPageRoute(
+                builder: (context) => SelectPeriod(PlaceName: PlaceName)),
           );
         },
         child: Container(
