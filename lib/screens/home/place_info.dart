@@ -1,10 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/animation/animation_controller.dart';
-import 'package:flutter/src/widgets/ticker_provider.dart';
 import 'package:locare/data/models/FacilitiesModels/BarbequeArea.dart';
 import 'package:locare/data/models/FacilitiesModels/LivingRoom.dart';
 import 'package:locare/data/models/FacilitiesModels/PlayGround.dart';
@@ -13,8 +9,6 @@ import 'package:locare/data/models/FacilitiesModels/Pool.dart';
 import 'package:locare/data/models/FacilitiesModels/wifi.dart';
 import 'package:locare/data/models/Facility.dart';
 import 'package:locare/data/models/Place.dart';
-import 'package:locare/data/repository/place_rep.dart';
-import 'package:locare/data/web_services/customer_service.dart';
 import 'package:locare/screens/home/select_date.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -61,8 +55,9 @@ class _PlaceInfoState extends State<PlaceInfo>
                 toolbarHeight: 0,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 80, 0, 0),
+                padding: const EdgeInsets.fromLTRB(20, 80, 20, 0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -71,6 +66,24 @@ class _PlaceInfoState extends State<PlaceInfo>
                       child: const Icon(
                         Icons.arrow_back_ios,
                         color: Colors.white,
+                      ),
+                    ),
+                    // favorite button
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      child: GestureDetector(
+                        onTap: () {
+                          // setState(() {
+                          //   widget.place.isFavorite =
+                          //       !widget.place.isFavorite;
+                          // });
+                        },
+                        child: Icon(
+                          // widget.place.isFavorite
+                          // ? Icons.favorite
+                          Icons.favorite_border,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],
@@ -122,8 +135,8 @@ class _PlaceInfoState extends State<PlaceInfo>
             ),
 
             //price
-            const Text(
-              '1200 SAR/Period',
+            Text(
+              '${widget.place.price} SAR/Period',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.right,
             ),
@@ -258,7 +271,7 @@ class _PlaceInfoState extends State<PlaceInfo>
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 30,
+                crossAxisSpacing: 25,
                 childAspectRatio: 5,
               ),
               children: <Widget>[
