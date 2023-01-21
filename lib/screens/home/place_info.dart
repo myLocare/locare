@@ -258,6 +258,7 @@ class _PlaceInfoState extends State<PlaceInfo>
           indent: 20,
           endIndent: 20,
         ),
+        // Facilities section
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

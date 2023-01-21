@@ -6,6 +6,7 @@ import 'package:locare/data/models/Place.dart';
 import 'package:locare/data/models/Reservation.dart';
 import 'package:locare/data/web_services/place_service.dart';
 import 'package:locare/data/web_services/reservation_service.dart';
+import 'package:locare/widgets/booking_card.dart';
 
 class BookingsPage extends StatefulWidget {
   BookingsPage({super.key});
@@ -62,29 +63,24 @@ class _BookingsPageState extends State<BookingsPage> {
                     );
                   }
 
-                  return Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                    child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        Reservation reservation = Reservation.fromJson(
-                            snapshot.data!.docs[index].data());
-                        if (reservation.customerID == customerID) {
-                          return Card(
-                            child: ListTile(
-                              title: Text(reservation.status),
-                              subtitle: Text(reservation.amountPaid.toString()),
-                              trailing: Text(snapshot.data!.docs[index].id),
-                            ),
-                          );
-                        } else
-                          return Container();
-                      },
-                    ),
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Reservation reservation = Reservation.fromJson(
+                          snapshot.data!.docs[index].data());
+                      if (reservation.customerID == customerID) {
+                        return BookingCard(
+                          reservation: Reservation.fromJson(
+                              snapshot.data!.docs[index].data()),
+                          reservationID: snapshot.data!.docs[index].id,
+                        );
+                      } else
+                        return Container();
+                    },
                   );
                 },
               ),
-            )
+            ),
           ]),
         ),
       ),

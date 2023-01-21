@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:locare/data/models/Place.dart';
+import 'package:locare/screens/home/place_info.dart';
 
 class FavCard extends StatelessWidget {
   const FavCard({
@@ -11,14 +12,23 @@ class FavCard extends StatelessWidget {
     required this.place,
   });
 
-  final Place? place;
+  final Place place;
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PlaceInfo(
+              place: place,
+            ),
+          ),
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
         child: Container(
