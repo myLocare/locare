@@ -5,7 +5,7 @@ class Place {
   String description;
   List<String> images;
   String address;
-  bool isVerified;
+  bool isVerified = false;
   String ownerID;
   List<dynamic>? reviews = [];
   Map<String, int>? facilities;

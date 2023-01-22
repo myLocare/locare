@@ -7,12 +7,10 @@ import 'package:locare/data/models/Place.dart';
 import 'package:locare/screens/home/place_info.dart';
 
 class FavCard extends StatelessWidget {
-  const FavCard({
-    super.key,
-    required this.place,
-  });
+  FavCard({super.key, required this.place, required this.favList});
 
-  final Place place;
+  List<dynamic> favList;
+  Place place;
 
   @override
   Widget build(BuildContext context) {

@@ -10,15 +10,21 @@ import 'package:locare/widgets/custom_button.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     final customerInfo =
         FirebaseFirestore.instance.collection('Customer').doc(user.uid);
     return Container(
+      // make border radius to 50 for container
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(50),
+          topRight: Radius.circular(50),
+        ),
+        color: Colors.white,
+      ),
       width: double.infinity,
-      color: Colors.white,
       child: Column(
         children: [
           SizedBox(
@@ -29,7 +35,7 @@ class ProfileView extends StatelessWidget {
             builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
               if (snapshot.hasData) {
                 return Text(
-                  ('ID: ${user.uid}\nEmail: ${user.email}\nName: ${snapshot.data!.get('name')}\nCity: ${snapshot.data!.get('city')}\nPhone Number: ${snapshot.data!.get('phoneNumber')}'),
+                  'Welcome, ${snapshot.data!['name']}',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
                 );
@@ -41,11 +47,14 @@ class ProfileView extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          CustomButton(
-            label: 'Sign Out',
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-            },
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: CustomButton(
+              label: 'Sign Out',
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+            ),
           ),
         ],
       ),

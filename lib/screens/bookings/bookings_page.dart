@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:locare/data/models/Place.dart';
 import 'package:locare/data/models/Reservation.dart';
@@ -14,7 +15,7 @@ class BookingsPage extends StatefulWidget {
 }
 
 class _BookingsPageState extends State<BookingsPage> {
-  String customerID = "ZykNyT0EtoA8M3ZNKT9L";
+  String customerID = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,9 @@ class _BookingsPageState extends State<BookingsPage> {
             borderRadius: BorderRadius.all(Radius.circular(50)),
           ),
           child: Column(children: [
+            Text("Bookings",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            SizedBox(height: height * 0.02),
             Expanded(
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
@@ -49,13 +53,11 @@ class _BookingsPageState extends State<BookingsPage> {
                   if (snapshot.hasError) {
                     return Text('Something went wrong');
                   }
-
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
-
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (BuildContext context, int index) {

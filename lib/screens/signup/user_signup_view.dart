@@ -167,8 +167,8 @@ class _UserSignUpViewState extends State<UserSignUpView> {
                                         userEmailController.text.trim(),
                                         userPasswordController.text.trim(),
                                         nameController.text.trim(),
-                                        phoneController.text.trim(),
                                         cityController.text.trim(),
+                                        phoneController.text.trim(),
                                       );
                                       // index = !index;
                                     });

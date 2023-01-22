@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:locare/screens/home_base.dart';
 import 'package:locare/screens/signup/user_signup_view.dart';
 import 'package:locare/widgets/custom_textfield.dart';
 
+import '../../../data/models/Customer.dart';
 import '../../../main.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_textformfield.dart';
@@ -26,6 +28,7 @@ class _LoginViewState extends State<LoginView> {
   final formKey = GlobalKey<FormState>();
   final userEmailController = TextEditingController();
   final userPasswordController = TextEditingController();
+  late Customer customer;
   bool checkBoxValue = false;
   @override
   void dispose() {
@@ -303,21 +306,13 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Future signIn() async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: userEmailController.text.trim(),
         password: userPasswordController.text.trim(),
       );
+      // get customer data from firebase and store it in the customer object
+
     } on FirebaseAuthException catch (e) {
       print(e);
     }

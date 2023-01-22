@@ -34,6 +34,11 @@ Future<void> addPlaceToFavList(String uid, String placeId) async {
     'favoriteList': FieldValue.arrayUnion([placeId])
   });
   print("added");
+  List<String> favList = [];
+  customer.doc(uid).get().then((value) {
+    favList = List.from(value['favoriteList']);
+    // print(favList);
+  });
 }
 
 // remove a place from the favorite list of a customer
@@ -42,10 +47,24 @@ Future<void> removePlaceFromFavList(String uid, String placeId) async {
     'favoriteList': FieldValue.arrayRemove([placeId])
   });
   print("removed");
+  List<String> favList = [];
+  customer.doc(uid).get().then((value) {
+    favList = List.from(value['favoriteList']);
+    // print(favList);
+  });
 }
 
-// check if a place is in the favorite list of a customer
-Future<bool> isPlaceInFavList(String uid, String placeId) async {
-  List<String> favList = await getFavListIdsByCustomerID(uid);
+// check if a place is in the favorite list of a customer without future
+bool isPlaceInFavListSync(String uid, String placeId) {
+  List<String> favList = [];
+  customer.doc(uid).get().then((value) {
+    favList = List.from(value['favoriteList']);
+    print(favList);
+  });
+  if (favList.contains(placeId)) {
+    print("true");
+  } else {
+    print("false");
+  }
   return favList.contains(placeId);
 }
