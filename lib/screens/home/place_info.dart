@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:locare/data/models/FacilitiesModels/BarbequeArea.dart';
 import 'package:locare/data/models/FacilitiesModels/LivingRoom.dart';
@@ -13,10 +14,20 @@ import 'package:locare/screens/home/select_date.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../data/repository/customer_rep.dart';
+
 class PlaceInfo extends StatefulWidget {
-  PlaceInfo({super.key, required this.place});
-  String customerID = "ZykNyT0EtoA8M3ZNKT9L";
-  Place place;
+  PlaceInfo(
+      {super.key,
+      required this.place,
+      required this.placeID,
+      required this.favList});
+  // String customerID = "ZykNyT0EtoA8M3ZNKT9L";
+
+  final Place place;
+  final String placeID;
+  final List<dynamic> favList;
+  bool isFav = false;
   @override
   State<PlaceInfo> createState() => _PlaceInfoState();
 }
@@ -29,6 +40,7 @@ class _PlaceInfoState extends State<PlaceInfo>
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+    widget.isFav = widget.favList.contains(widget.placeID);
   }
 
   @override
@@ -39,6 +51,8 @@ class _PlaceInfoState extends State<PlaceInfo>
 
   @override
   Widget build(BuildContext context) {
+    String customerID = FirebaseAuth.instance.currentUser!.uid;
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -73,15 +87,20 @@ class _PlaceInfoState extends State<PlaceInfo>
                       padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                       child: GestureDetector(
                         onTap: () {
-                          // setState(() {
-                          //   widget.place.isFavorite =
-                          //       !widget.place.isFavorite;
-                          // });
+                          if (widget.isFav) {
+                            removePlaceFromFavList(customerID, widget.placeID);
+                            setState(() {
+                              widget.isFav = false;
+                            });
+                          } else {
+                            addPlaceToFavList(customerID, widget.placeID);
+                            setState(() {
+                              widget.isFav = true;
+                            });
+                          }
                         },
                         child: Icon(
-                          // widget.place.isFavorite
-                          // ? Icons.favorite
-                          Icons.favorite_border,
+                          widget.isFav ? Icons.favorite : Icons.favorite_border,
                           color: Colors.white,
                         ),
                       ),

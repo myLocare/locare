@@ -83,6 +83,7 @@ class _FavPageState extends State<FavPage> {
                           return FavCard(
                             place: place,
                             favList: favList,
+                            placeID: snapshot.data!.docs[index].id,
                           );
                         }
                         return const SizedBox();

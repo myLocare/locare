@@ -7,10 +7,15 @@ import 'package:locare/data/models/Place.dart';
 import 'package:locare/screens/home/place_info.dart';
 
 class FavCard extends StatelessWidget {
-  FavCard({super.key, required this.place, required this.favList});
+  FavCard(
+      {super.key,
+      required this.place,
+      required this.favList,
+      required this.placeID});
 
   List<dynamic> favList;
   Place place;
+  String placeID;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +28,8 @@ class FavCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => PlaceInfo(
               place: place,
+              placeID: placeID,
+              favList: favList,
             ),
           ),
         );
@@ -70,7 +77,7 @@ class FavCard extends StatelessWidget {
                   ),
                   child: SizedBox(
                     child: Image.network(
-                      place!.images[0],
+                      place.images[0],
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -81,14 +88,14 @@ class FavCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    place!.name,
+                    place.name,
                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.left,
                   ),
                   Row(
                     children: [
                       Text(
-                        "${place!.rating.toDouble()}",
+                        "${place.rating.toDouble()}",
                         style: TextStyle(fontSize: 12),
                         textAlign: TextAlign.right,
                       ),
@@ -96,11 +103,11 @@ class FavCard extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "${place!.area.toDouble()} m²",
+                    "${place.area.toDouble()} m²",
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                     textAlign: TextAlign.left,
                   ),
-                  Text("${place!.price.toDouble()} SAR",
+                  Text("${place.price.toDouble()} SAR",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
