@@ -67,8 +67,9 @@ class _BookingsPageState extends State<BookingsPage> {
                               snapshot.data!.docs[index].data()),
                           reservationID: snapshot.data!.docs[index].id,
                         );
-                      } else
+                      } else {
                         return Container();
+                      }
                     },
                   );
                 },

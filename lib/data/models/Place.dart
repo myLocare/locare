@@ -1,5 +1,3 @@
-import 'package:locare/screens/owner_app/reservations.dart';
-
 class Place {
   String name;
   String description;

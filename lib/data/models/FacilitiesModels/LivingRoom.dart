@@ -4,9 +4,9 @@ import 'package:locare/data/models/Facility.dart';
 class LivingRoom extends Facility {
   String? name = 'Living Room';
   Widget? icon = Icon(Icons.tv, color: Colors.black);
-  int numberOfItems;
+  int numberOfItems = 0;
 
   LivingRoom({
-    required this.numberOfItems,
+    this.numberOfItems = 0,
   }) : super(numberOfItems: numberOfItems);
 }

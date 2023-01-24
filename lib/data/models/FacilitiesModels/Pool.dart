@@ -4,9 +4,9 @@ import 'package:locare/data/models/Facility.dart';
 class Pool extends Facility {
   String? name = 'Pool';
   Widget? icon = Icon(Icons.pool, color: Colors.black);
-  int numberOfItems;
+  int numberOfItems = 0;
 
   Pool({
-    required this.numberOfItems,
+    this.numberOfItems = 0,
   }) : super(numberOfItems: numberOfItems);
 }

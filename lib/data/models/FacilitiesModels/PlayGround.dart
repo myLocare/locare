@@ -4,9 +4,9 @@ import 'package:locare/data/models/Facility.dart';
 class PlayGround extends Facility {
   String? name = 'Play Ground';
   Widget? icon = Icon(Icons.sports_soccer, color: Colors.black);
-  int numberOfItems;
+  int numberOfItems = 0;
 
   PlayGround({
-    required this.numberOfItems,
+    this.numberOfItems = 0,
   }) : super(numberOfItems: numberOfItems);
 }

@@ -15,7 +15,11 @@ class OwnerHomeBody extends StatefulWidget {
 
 int _Index = 0;
 
-final List<Widget> _pages = [Available_places(), reservations(), schedules()];
+final List<Widget> _pages = [
+  AvailablePlaces(),
+  OwnerReservations(),
+  Schedules()
+];
 
 class _OwnerHomeBodyState extends State<OwnerHomeBody> {
   @override
