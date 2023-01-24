@@ -74,7 +74,7 @@ class listCard1 extends StatelessWidget {
           Row(
             children: [
               Text(
-                "${place.area} m²",
+                "${place.address}",
                 style: TextStyle(fontSize: 17, color: Colors.grey),
                 textAlign: TextAlign.left,
               ),

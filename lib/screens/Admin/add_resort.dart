@@ -149,15 +149,15 @@ class AddResort extends StatelessWidget {
                         ownerID: _ownerID.text,
                         description: _description.text,
                         address: _address.text,
-                        area: 1,
+                        area: double.parse(_area.text),
                         type: _type.text,
                         facilities: {},
                         images: [_image.text],
                         isVerified: true,
                         price: 0,
                         rating: 0,
-                        reviews: [],
-                        reservationList: [],
+                        reviews: [""],
+                        reservationList: [""],
                       );
                       Admin.admin.addPlace(tempPlace);
                     },

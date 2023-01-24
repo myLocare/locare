@@ -91,15 +91,6 @@ class _HomeBodyState extends State<HomeBody> {
           title: Text("Locare "),
           backgroundColor: const Color(0xFF345EA8),
           elevation: 0,
-          leading: IconButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-            },
-            icon: Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.rotationY(3),
-                child: Icon(Icons.logout)),
-          ),
         ),
         body: IndexedStack(
           index: _Index,

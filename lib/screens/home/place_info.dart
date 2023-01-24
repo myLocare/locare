@@ -219,7 +219,7 @@ class _PlaceInfoState extends State<PlaceInfo>
                         color: Colors.yellow,
                       ),
                 Text(
-                  "${widget.place.reviews?.length.toString()} reviews",
+                  "${(widget.place.reviews!.length - 1).toString()} reviews",
                   style: TextStyle(fontSize: 14),
                   textAlign: TextAlign.right,
                 ),

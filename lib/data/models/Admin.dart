@@ -6,20 +6,7 @@ class Admin {
   static Admin admin = Admin();
 
   void addPlace(Place place) async {
-    await db.collection('place').add({
-      'name': place.name,
-      'description': place.description,
-      'images': place.images,
-      'address': place.address,
-      'isVerified': place.isVerified,
-      'ownerID': place.ownerID,
-      'reviews': place.reviews,
-      'facilities': place.facilities,
-      'area': place.area,
-      'price': place.price,
-      'type': place.type,
-      'rating': place.rating,
-    });
+    await db.collection('place').add(place.toJSON());
     print("The place has been added");
   }
 

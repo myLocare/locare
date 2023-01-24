@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:locare/widgets/list_card.dart';
-
+import 'package:locare/constants/colors.dart';
 import '../../data/models/Place.dart';
 
 class ClickOnCategory extends StatefulWidget {
@@ -54,7 +54,13 @@ class _ClickOnCategoryState extends State<ClickOnCategory> {
                   width: 12,
                 ),
                 // a button to show top rated places
-                topButton("Top Rated", null, () {
+                topButton(
+                    "Top Rated ",
+                    Icon(
+                      Icons.star,
+                      color: Colors.yellow,
+                      size: 18,
+                    ), () {
                   checkOption(0);
                 }, categoryIndex == 0),
                 topButton("Most Visited", null, () {
@@ -74,6 +80,9 @@ class _ClickOnCategoryState extends State<ClickOnCategory> {
                 ),
               ],
             ),
+          ),
+          SizedBox(
+            height: 12,
           ),
           StreamBuilder(
               stream:
@@ -144,14 +153,16 @@ class _ClickOnCategoryState extends State<ClickOnCategory> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: isSelected ? Colors.blue : Colors.white,
+            color: isSelected ? myColors.myBlue : Colors.white,
           ),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: Center(
               child: Row(
                 children: [
-                  Text(txt),
+                  Text(txt,
+                      style: TextStyle(
+                          color: isSelected ? Colors.white : Colors.black)),
                   icon ?? Container(),
                 ],
               ),
