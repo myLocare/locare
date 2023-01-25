@@ -231,7 +231,7 @@ class _PlaceInfoState extends State<PlaceInfo>
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "${widget.place.reviews!.length.toString()} reviews",
+                  "null reviews",
                   style: TextStyle(fontSize: 14),
                   textAlign: TextAlign.right,
                 ),

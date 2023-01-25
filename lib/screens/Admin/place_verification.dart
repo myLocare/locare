@@ -35,35 +35,41 @@ class VerifyPlaces extends StatelessWidget {
               stream:
                   FirebaseFirestore.instance.collection("place").snapshots(),
               builder: ((context, snapshot) {
-                return Expanded(
-                  child: ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: ((context, index) {
-                      Place place =
-                          Place.fromJson(snapshot.data!.docs[index].data());
-                      if (!place.isVerified) {
-                        return Card(
-                          margin: EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              Text(place.name),
-                              Text(place.ownerID),
-                              IconButton(
-                                  onPressed: () {
-                                    snapshot.data!.docs[index].reference
-                                        .update({"isVerified": true});
-                                    print("Verified");
-                                  },
-                                  icon: Icon(Icons.approval))
-                            ],
-                          ),
-                        );
-                      } else {
-                        return Container();
-                      }
-                    }),
-                  ),
-                );
+                if (snapshot.hasData) {
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: ((context, index) {
+                        Place place =
+                            Place.fromJson(snapshot.data!.docs[index].data());
+                        if (!place.isVerified) {
+                          return Card(
+                            margin: EdgeInsets.all(20),
+                            child: Column(
+                              children: [
+                                Text(place.name),
+                                Text(place.ownerID),
+                                IconButton(
+                                    onPressed: () {
+                                      snapshot.data!.docs[index].reference
+                                          .update({"isVerified": true});
+                                      print("Verified");
+                                    },
+                                    icon: Icon(Icons.approval))
+                              ],
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      }),
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
               })),
         ],
       ),

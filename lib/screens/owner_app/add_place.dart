@@ -517,7 +517,6 @@ class _OwnerAddPlaceState extends State<OwnerAddPlace> {
                     isVerified: false,
                     price: double.parse(widget._price.text),
                     rating: 0,
-                    reviews: [],
                     reservationList: [],
                   );
                   Admin.admin.addPlace(ownerPlace);

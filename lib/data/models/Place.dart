@@ -5,7 +5,6 @@ class Place {
   String address;
   bool isVerified = false;
   String ownerID;
-  List<dynamic>? reviews = [];
   Map<String, int>? facilities;
   double area;
   double price;
@@ -20,7 +19,6 @@ class Place {
     required this.address,
     required this.isVerified,
     required this.ownerID,
-    this.reviews,
     this.facilities,
     required this.area,
     required this.price,
@@ -36,7 +34,6 @@ class Place {
         address = json['address'],
         isVerified = json['isVerified'],
         ownerID = json['ownerID'],
-        reviews = List<String>.from(json['reviews']),
         facilities = Map<String, int>.from(json['facilities']),
         area = json['area'].toDouble(),
         price = json['price'].toDouble(),
@@ -51,7 +48,6 @@ class Place {
         'address': address,
         'isVerified': isVerified,
         'ownerID': ownerID,
-        'reviews': reviews,
         'facilities': facilities,
         'area': area,
         'price': price,
