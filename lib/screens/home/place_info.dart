@@ -61,27 +61,41 @@ class _PlaceInfoState extends State<PlaceInfo>
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              SizedBox(
-                  height: height * 0.45, child: placeImages(width, height)),
-              AppBar(
-                backgroundColor: Color(0xFF345EA8),
-                elevation: 0,
-                toolbarHeight: 0,
-              ),
-              onPressed: () {
-                // setState(() {
-                //   widget.place. = !widget.place.isFavorite;
-                // });
-              },
-            ),
-          ),
+      //make an appbar with a back button
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child:
+                IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
+          )
         ],
       ),
+
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      extendBodyBehindAppBar: true,
+      // body: Column(
+      //   children: [
+      //     Stack(
+      //       children: [
+      //         SizedBox(
+      //             height: height * 0.45, child: placeImages(width, height)),
+      //         AppBar(
+      //           backgroundColor: Color(0xFF345EA8),
+      //           elevation: 0,
+      //           toolbarHeight: 0,
+      //         ),
+      //         onPressed: () {
+      //           // setState(() {
+      //           //   widget.place. = !widget.place.isFavorite;
+      //           // });
+      //         },
+      //       ),
+      //   ],
+      //     ),
+
       // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(
         children: [

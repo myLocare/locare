@@ -28,9 +28,11 @@ class OwnerPlaceCard extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => PlaceInfo(
-                            place: place,
-                          )),
+                    builder: (context) => PlaceInfo(
+                      placeID: "2Jf6wIAJu1fCkaIac0Jy",
+                      place: place,
+                    ),
+                  ),
                 );
               },
               child: Container(
@@ -69,6 +71,7 @@ class OwnerPlaceCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => PlaceInfo(
+                      placeID: "2Jf6wIAJu1fCkaIac0Jy",
                       place: place,
                     ),
                   ),
