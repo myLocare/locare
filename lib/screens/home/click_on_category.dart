@@ -128,9 +128,10 @@ class _ClickOnCategoryState extends State<ClickOnCategory> {
                       itemBuilder: (context, index) {
                         if (places[index].type == widget.type) {
                           return listCard1(
-                              context: context,
-                              place: places[index],
-                              placeID: snapshot.data!.docs[index].id);
+                            context: context,
+                            place: places[index],
+                            placeID: snapshot.data!.docs[index].id,
+                          );
                         }
                         return Container();
                       },

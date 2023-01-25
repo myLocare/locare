@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:locare/data/models/Customer.dart';
 import 'package:locare/data/models/FacilitiesModels/BarbequeArea.dart';
 import 'package:locare/data/models/FacilitiesModels/LivingRoom.dart';
 import 'package:locare/data/models/FacilitiesModels/PlayGround.dart';
@@ -17,17 +19,17 @@ import 'package:carousel_slider/carousel_slider.dart';
 import '../../data/repository/customer_rep.dart';
 
 class PlaceInfo extends StatefulWidget {
-  PlaceInfo(
-      {super.key,
-      required this.place,
-      required this.placeID,
-      required this.favList});
+  PlaceInfo({
+    super.key,
+    required this.place,
+    required this.placeID,
+    // required this.isFav,
+  });
   // String customerID = "ZykNyT0EtoA8M3ZNKT9L";
 
   final Place place;
   final String placeID;
-  final List<dynamic> favList;
-  bool isFav = false;
+
   @override
   State<PlaceInfo> createState() => _PlaceInfoState();
 }
@@ -35,12 +37,12 @@ class PlaceInfo extends StatefulWidget {
 class _PlaceInfoState extends State<PlaceInfo>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-
+  List<dynamic> favList11 = [];
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
-    widget.isFav = widget.favList.contains(widget.placeID);
+    favList11 = [];
   }
 
   @override
@@ -61,6 +63,27 @@ class _PlaceInfoState extends State<PlaceInfo>
         children: [
           Stack(
             children: [
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Customer')
+                    .doc(customerID)
+                    .snapshots(),
+                builder: ((context, snapshot) {
+                  if (snapshot.hasData) {
+                    Customer customer = Customer.fromJson(
+                        snapshot.data!.data() as Map<String, dynamic>);
+                    if (customer.reservationList.contains(widget.placeID)) {
+                      setState(() {
+                        for (int i = 0; i < customer.favoriteList.length; i++) {
+                          favList11.add(customer.favoriteList[i]);
+                        }
+                      });
+                      // print("isFav: $isFav");
+                    }
+                  }
+                  return Text("Something went wrong");
+                }),
+              ),
               SizedBox(
                   height: height * 0.45, child: placeImages(width, height)),
               AppBar(
@@ -87,20 +110,24 @@ class _PlaceInfoState extends State<PlaceInfo>
                       padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                       child: GestureDetector(
                         onTap: () {
-                          if (widget.isFav) {
+                          if (favList11.contains(widget.placeID)) {
                             removePlaceFromFavList(customerID, widget.placeID);
                             setState(() {
-                              widget.isFav = false;
+                              favList11.remove(widget.placeID);
                             });
-                          } else {
+                            print(favList11);
+                          }
+                          if (!favList11.contains(widget.placeID)) {
                             addPlaceToFavList(customerID, widget.placeID);
                             setState(() {
-                              widget.isFav = true;
+                              favList11.add(widget.placeID);
                             });
                           }
                         },
                         child: Icon(
-                          widget.isFav ? Icons.favorite : Icons.favorite_border,
+                          favList11.contains(widget.placeID)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
                           color: Colors.white,
                         ),
                       ),

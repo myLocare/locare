@@ -21,12 +21,11 @@ class HomeBody extends StatefulWidget {
   State<HomeBody> createState() => _HomeBodyState();
 }
 
-List<dynamic> favList = [];
 int _Index = 0;
 final List<Widget> _pages = [
   UserBody(),
   BookingsPage(),
-  FavPage(favList: favList),
+  FavPage(),
   ProfileView()
 ];
 
@@ -40,14 +39,6 @@ final List<Widget> _pages = [
 // }
 
 // get customer by stream
-Stream<Customer> getCurrentCustomer() {
-  final user = FirebaseAuth.instance.currentUser!;
-  return FirebaseFirestore.instance
-      .collection('Customer')
-      .doc(user.uid)
-      .snapshots()
-      .map((snapshot) => Customer.fromJson(snapshot.data()!));
-}
 
 class _HomeBodyState extends State<HomeBody> {
   @override
@@ -69,21 +60,6 @@ class _HomeBodyState extends State<HomeBody> {
     double height = MediaQuery.of(context).size.height;
     return Stack(children: [
       // make a future builder to get the customer data
-      StreamBuilder(
-          stream: getCurrentCustomer(),
-          builder: (context, snapshot) {
-            // theCustomer = Customer.fromJson(snapshot.data);
-            if (snapshot.hasData) {
-              // make an object of customer
-              Customer customer = snapshot.data as Customer;
-              for (var i = 0; i < customer.favoriteList.length; i++) {
-                favList.add(customer.favoriteList[i]);
-              }
-              return Container();
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          }),
       Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(

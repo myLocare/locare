@@ -10,9 +10,8 @@ import '../../data/models/Place.dart';
 import '../home_base.dart';
 
 class FavPage extends StatefulWidget {
-  FavPage({super.key, required this.favList});
+  FavPage({super.key});
 
-  List<dynamic> favList;
   @override
   State<FavPage> createState() => _FavPageState();
 }
@@ -23,14 +22,6 @@ class _FavPageState extends State<FavPage> {
   final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
-    // List<String> favIdList = [
-    //   "OHXJc9n25USnypvcLSuI",
-    //   "P7YkTqphPXcmJ1RyFdJm",
-    //   "hdwv6M8yVOByiKXWcUat",
-    //   "HNHuFt1DvrBX8HroOrmX",
-    //   "sxWTY7Oa274dPz05rILI",
-    // ];
-
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -57,39 +48,72 @@ class _FavPageState extends State<FavPage> {
           ),
           SizedBox(height: height * 0.02),
           Expanded(
-            child: StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection('place').snapshots(),
-              builder: (context,
-                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Something went wrong');
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                if (snapshot.hasData) {}
-
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                  child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        Place place =
-                            Place.fromJson(snapshot.data!.docs[index].data());
-                        if (favList.contains(snapshot.data!.docs[index].id)) {
-                          return FavCard(
-                            place: place,
-                            favList: favList,
-                            placeID: snapshot.data!.docs[index].id,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: StreamBuilder(
+                stream:
+                    FirebaseFirestore.instance.collection('place').snapshots(),
+                builder: (context,
+                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                        placeSnapshot) {
+                  if (placeSnapshot.hasError) {
+                    return Text('Something went wrong');
+                  }
+                  if (placeSnapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (placeSnapshot.hasData) {
+                    return StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('Customer')
+                          .doc(customerID)
+                          .snapshots(),
+                      builder: (context,
+                          AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
+                              customerSnapshot) {
+                        if (customerSnapshot.hasError) {
+                          return Text('Something went wrong');
+                        }
+                        if (customerSnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
                           );
                         }
-                        return const SizedBox();
-                      }),
-                );
-              },
+                        if (customerSnapshot.hasData) {
+                          Customer customer =
+                              Customer.fromJson(customerSnapshot.data!.data()!);
+                          List<dynamic> favList = customer.favoriteList;
+                          return ListView.builder(
+                            itemCount: placeSnapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              Place place = Place.fromJson(
+                                  placeSnapshot.data!.docs[index].data());
+                              String placeID =
+                                  placeSnapshot.data!.docs[index].id;
+                              if (favList.contains(placeID)) {
+                                return FavCard(
+                                  place: place,
+                                  placeID: placeID,
+                                  favList: favList,
+                                  isFav: false,
+                                );
+                              } else {
+                                return Container();
+                              }
+                            },
+                          );
+                        }
+                        return Text('Something went wrong');
+                      },
+                    );
+                  }
+                  return Text('Something went wrong');
+                },
+              ),
             ),
           ),
         ]),

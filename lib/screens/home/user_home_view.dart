@@ -65,9 +65,10 @@ class _UserBodyState extends State<UserBody> {
                 child: ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) => listCard1(
-                      context: context,
-                      place: Place.fromJson(snapshot.data!.docs[index].data()),
-                      placeID: snapshot.data!.docs[index].id),
+                    context: context,
+                    place: Place.fromJson(snapshot.data!.docs[index].data()),
+                    placeID: snapshot.data!.docs[index].id,
+                  ),
                 ),
               );
             },

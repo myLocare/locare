@@ -9,11 +9,13 @@ class listCard1 extends StatelessWidget {
     required this.context,
     required this.place,
     required this.placeID,
+    // required this.isFav,
   }) : super(key: key);
 
   final BuildContext context;
   final Place place;
   final String placeID;
+  // final bool isFav;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,11 @@ class listCard1 extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                PlaceInfo(place: place, placeID: placeID, favList: favList),
+            builder: (context) => PlaceInfo(
+              place: place,
+              placeID: placeID,
+              // isFav: isFav,
+            ),
           ),
         );
       },

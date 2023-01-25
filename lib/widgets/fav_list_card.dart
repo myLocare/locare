@@ -7,15 +7,18 @@ import 'package:locare/data/models/Place.dart';
 import 'package:locare/screens/home/place_info.dart';
 
 class FavCard extends StatelessWidget {
-  FavCard(
-      {super.key,
-      required this.place,
-      required this.favList,
-      required this.placeID});
+  FavCard({
+    super.key,
+    required this.place,
+    required this.favList,
+    required this.placeID,
+    required this.isFav,
+  });
 
   List<dynamic> favList;
   Place place;
   String placeID;
+  bool isFav;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class FavCard extends StatelessWidget {
             builder: (context) => PlaceInfo(
               place: place,
               placeID: placeID,
-              favList: favList,
+              // isFav: isFav,
             ),
           ),
         );
@@ -61,13 +64,7 @@ class FavCard extends StatelessWidget {
                 width: width * 0.3,
                 height: height * 0.1,
                 decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(16),
@@ -99,11 +96,11 @@ class FavCard extends StatelessWidget {
                         style: TextStyle(fontSize: 12),
                         textAlign: TextAlign.right,
                       ),
-                      Icon(Icons.star, color: Colors.yellow),
+                      Icon(Icons.star, color: Colors.yellow, size: 12),
                     ],
                   ),
                   Text(
-                    "${place.area.toDouble()} m²",
+                    "${place.address}",
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                     textAlign: TextAlign.left,
                   ),
