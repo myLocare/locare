@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -63,13 +65,20 @@ class _UserBodyState extends State<UserBody> {
               return Padding(
                 padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                 child: ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (BuildContext context, int index) => listCard1(
-                    context: context,
-                    place: Place.fromJson(snapshot.data!.docs[index].data()),
-                    placeID: snapshot.data!.docs[index].id,
-                  ),
-                ),
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Place place =
+                          Place.fromJson(snapshot.data!.docs[index].data());
+                      if (place.isVerified) {
+                        return listCard1(
+                          context: context,
+                          place: place,
+                          placeID: snapshot.data!.docs[index].id,
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    }),
               );
             },
           )),

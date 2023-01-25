@@ -1,13 +1,11 @@
 class Review {
-  int reviewID;
-  int placeID;
-  int userID;
+  String placeID;
+  String userID;
   int rating;
   String comment;
-  String date;
+  DateTime date;
 
   Review({
-    required this.reviewID,
     required this.placeID,
     required this.userID,
     required this.rating,
@@ -17,17 +15,15 @@ class Review {
 
   factory Review.fromJson(Map<String, dynamic> json) {
     return Review(
-      reviewID: json['reviewID'],
       placeID: json['placeID'],
       userID: json['userID'],
       rating: json['rating'],
       comment: json['comment'],
-      date: json['date'],
+      date: json['date'].toDate(),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'reviewID': reviewID,
         'placeID': placeID,
         'userID': userID,
         'rating': rating,

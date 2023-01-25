@@ -16,7 +16,9 @@ import 'package:locare/screens/home/select_date.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../data/models/Review.dart';
 import '../../data/repository/customer_rep.dart';
+import '../../widgets/review_card.dart';
 
 class PlaceInfo extends StatefulWidget {
   PlaceInfo({
@@ -54,6 +56,7 @@ class _PlaceInfoState extends State<PlaceInfo>
   @override
   Widget build(BuildContext context) {
     String customerID = FirebaseAuth.instance.currentUser!.uid;
+    bool isFav = false;
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -73,6 +76,7 @@ class _PlaceInfoState extends State<PlaceInfo>
                     Customer customer = Customer.fromJson(
                         snapshot.data!.data() as Map<String, dynamic>);
                     if (customer.reservationList.contains(widget.placeID)) {
+                      isFav = true;
                       setState(() {
                         for (int i = 0; i < customer.favoriteList.length; i++) {
                           favList11.add(customer.favoriteList[i]);
@@ -114,6 +118,7 @@ class _PlaceInfoState extends State<PlaceInfo>
                             removePlaceFromFavList(customerID, widget.placeID);
                             setState(() {
                               favList11.remove(widget.placeID);
+                              isFav = !isFav;
                             });
                             print(favList11);
                           }
@@ -121,13 +126,12 @@ class _PlaceInfoState extends State<PlaceInfo>
                             addPlaceToFavList(customerID, widget.placeID);
                             setState(() {
                               favList11.add(widget.placeID);
+                              isFav = !isFav;
                             });
                           }
                         },
                         child: Icon(
-                          favList11.contains(widget.placeID)
-                              ? Icons.favorite
-                              : Icons.favorite_border,
+                          isFav ? Icons.favorite : Icons.favorite_border,
                           color: Colors.white,
                         ),
                       ),
@@ -245,26 +249,33 @@ class _PlaceInfoState extends State<PlaceInfo>
                         Icons.star_border,
                         color: Colors.yellow,
                       ),
-                Text(
-                  "${(widget.place.reviews!.length - 1).toString()} reviews",
-                  style: TextStyle(fontSize: 14),
-                  textAlign: TextAlign.right,
-                ),
               ],
             )
           ],
         ),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('45 kilometers away ',
+            Text(widget.place.type,
                 style: TextStyle(fontSize: 18, color: Colors.grey),
                 textAlign: TextAlign.left),
-            Icon(Icons.share, color: Colors.grey),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  "${widget.place.reviews!.length.toString()} reviews",
+                  style: TextStyle(fontSize: 14),
+                  textAlign: TextAlign.right,
+                ),
+              ],
+            ),
           ],
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+          padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -272,17 +283,23 @@ class _PlaceInfoState extends State<PlaceInfo>
                 height: height * 0.01,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.location_on, color: Colors.black54),
-                  Text(widget.place.address,
-                      style: TextStyle(fontSize: 18, color: Colors.grey),
-                      textAlign: TextAlign.left),
+                  Row(
+                    children: [
+                      Icon(Icons.location_on, color: Colors.black54),
+                      Text(" " + widget.place.address,
+                          style: TextStyle(fontSize: 18, color: Colors.grey),
+                          textAlign: TextAlign.left),
+                    ],
+                  ),
+                  Icon(Icons.share, color: Colors.grey),
                 ],
               ),
               Row(
                 children: [
                   Icon(Icons.space_bar, color: Colors.black54),
-                  Text('${widget.place.area} m²',
+                  Text(' ${widget.place.area} m²',
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                       textAlign: TextAlign.left),
                 ],
@@ -404,7 +421,77 @@ class _PlaceInfoState extends State<PlaceInfo>
             fontSize: 24,
           ),
           textAlign: TextAlign.left,
-        )
+        ),
+        // Column(
+        //   children: [
+        //     for (var review in widget.place.reviews!)
+        //       ReviewCard(
+        //         review: review,
+        //       ),
+        //   ],
+        // ),
+        StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection("place")
+                .doc(widget.placeID)
+                .collection("Reviews")
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    Review review =
+                        Review.fromJson(snapshot.data!.docs[index].data());
+                    return ReviewCard(
+                      review: review,
+                    );
+                  },
+                );
+              } else {
+                return Text('No reviews yet');
+              }
+            }),
+        ReviewCard(
+          review: Review(
+            placeID: widget.placeID,
+            userID: FirebaseAuth.instance.currentUser!.uid,
+            rating: 5,
+            comment: 'This is a comment',
+            date: DateTime.now(),
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => null,
+            //   ),
+            // );
+          },
+          child: Container(
+            height: height * 0.07,
+            width: width * 0.9,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.add),
+                Text(
+                  'Add a review',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: height * 0.05,
+        ),
       ],
     );
   }

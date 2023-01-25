@@ -94,7 +94,8 @@ class _FavPageState extends State<FavPage> {
                                   placeSnapshot.data!.docs[index].data());
                               String placeID =
                                   placeSnapshot.data!.docs[index].id;
-                              if (favList.contains(placeID)) {
+                              if (favList.contains(placeID) &&
+                                  place.isVerified) {
                                 return FavCard(
                                   place: place,
                                   placeID: placeID,

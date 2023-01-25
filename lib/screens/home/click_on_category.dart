@@ -126,7 +126,8 @@ class _ClickOnCategoryState extends State<ClickOnCategory> {
                       padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
-                        if (places[index].type == widget.type) {
+                        if (places[index].type == widget.type &&
+                            places[index].isVerified == true) {
                           return listCard1(
                             context: context,
                             place: places[index],
