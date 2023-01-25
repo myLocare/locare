@@ -58,6 +58,7 @@ dependencies:
   path_provider: ^2.0.11
   dropdown_button2: ^1.9.2
   flutter_hooks: ^0.18.5+1
+  responsive_framework: ^0.2.0
 
 dev_dependencies:
   flutter_test:
