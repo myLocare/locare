@@ -6,6 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'place_verification.dart';
+
 class GetAllPlaces extends StatefulWidget {
   GetAllPlaces({super.key});
 
@@ -42,6 +44,17 @@ class _GetAllPlacesState extends State<GetAllPlaces> {
             Navigator.pop(context);
           },
         ),
+        actions: [
+          // icon
+          IconButton(
+              onPressed: (() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => VerifyPlaces()),
+                );
+              }),
+              icon: Icon(Icons.arrow_back, color: Colors.black))
+        ],
       ),
       body: Container(
         width: width,

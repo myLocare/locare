@@ -1,15 +1,18 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:locare/data/web_services/place_API.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:locare/data/repository/customer_rep.dart';
 import 'package:locare/screens/Admin/add_resort.dart';
 import 'package:locare/screens/bookings/bookings_page.dart';
 import 'package:locare/screens/favorite/favorite_page.dart';
 import 'package:locare/screens/home/user_home_view.dart';
-
+import '../data/models/Customer.dart';
 import 'profile/user_profile.dart';
+import 'package:provider/provider.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -26,17 +29,42 @@ final List<Widget> _pages = [
   ProfileView()
 ];
 
+// Future _getCustomer() async {
+//   final user = FirebaseAuth.instance.currentUser!;
+//   final customer = await FirebaseFirestore.instance
+//       .collection('Customer')
+//       .doc(user.uid)
+//       .get();
+//   return customer;
+// }
+
+// get customer by stream
+
 class _HomeBodyState extends State<HomeBody> {
   @override
+  // initState() {
+  //   super.initState();
+  //   _getCustomer().then((value) {
+  //     setState(() {
+  //       favList = value['favoriteList'];
+  //     });
+  //   });
+  // }
+
+  final user = FirebaseAuth.instance.currentUser!;
+  @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    // user provider
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Stack(children: [
+      // make a future builder to get the customer data
       Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text("Locare ${user.email}"),
+          // title: Text("Locare ${user.email}"),
+          title: Text("Locare "),
           backgroundColor: const Color(0xFF345EA8),
           elevation: 0,
         ),

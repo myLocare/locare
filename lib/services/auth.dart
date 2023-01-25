@@ -27,7 +27,7 @@ Future signUp(context, String email, String password, String name, String city,
     User? user = userCredential.user;
 
     await DatabaseService(uid: user!.uid)
-        .updateUserData(name, city, phoneNumber);
+        .updateUserData(email, name, city, phoneNumber);
   } on FirebaseAuthException catch (e) {
     print(e.toString());
   }

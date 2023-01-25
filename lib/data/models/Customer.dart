@@ -6,6 +6,8 @@ class Customer extends User {
   List<dynamic> favoriteList;
   List<dynamic> reservationList;
 
+// make empty constructor
+
   Customer({
     this.customerID,
     required String name,

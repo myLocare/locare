@@ -1,15 +1,17 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:locare/data/models/Place.dart';
-import 'package:locare/data/repository/customer_rep.dart';
-import 'package:locare/data/web_services/place_service.dart';
+import 'package:locare/screens/home/click_on_category.dart';
 import 'package:locare/screens/home/place_info.dart';
-import 'package:favorite_button/favorite_button.dart';
+import 'package:locare/screens/home_base.dart';
 
-import '../../data/web_services/customer_service.dart';
+import '../../widgets/list_card.dart';
 
 class UserBody extends StatefulWidget {
   const UserBody({super.key});
@@ -19,7 +21,8 @@ class UserBody extends StatefulWidget {
 }
 
 class _UserBodyState extends State<UserBody> {
-  final String customerID = "ZykNyT0EtoA8M3ZNKT9L";
+  // final String customerID = "ZykNyT0EtoA8M3ZNKT9L";
+  String userId = FirebaseAuth.instance.currentUser!.uid;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -62,13 +65,20 @@ class _UserBodyState extends State<UserBody> {
               return Padding(
                 padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                 child: ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (BuildContext context, int index) => listCard(
-                    context,
-                    Place.fromJson(snapshot.data!.docs[index].data()),
-                    snapshot.data!.docs[index].id,
-                  ),
-                ),
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Place place =
+                          Place.fromJson(snapshot.data!.docs[index].data());
+                      if (place.isVerified) {
+                        return listCard1(
+                          context: context,
+                          place: place,
+                          placeID: snapshot.data!.docs[index].id,
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    }),
               );
             },
           )),
@@ -76,110 +86,10 @@ class _UserBodyState extends State<UserBody> {
       ),
     );
   }
-
-  InkWell listCard(BuildContext context, Place place, String placeID) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PlaceInfo(place: place),
-          ),
-        );
-      },
-      child: Column(
-        children: [
-          SizedBox(
-            height: height * 0.015,
-          ),
-          Container(
-            width: width * 0.9,
-            height: height * 0.3,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                place.images[0],
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: height * 0.01,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                place.name,
-                style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.left,
-              ),
-              Row(
-                children: [
-                  Text(
-                    "${place.rating}",
-                    style: TextStyle(fontSize: 18),
-                    textAlign: TextAlign.right,
-                  ),
-                  Icon(Icons.star, color: Colors.yellow),
-                ],
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Text(
-                "${place.rating} kilometers away",
-                style: TextStyle(fontSize: 17, color: Colors.grey),
-                textAlign: TextAlign.left,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              FavoriteButton(
-                isFavorite: false,
-                iconSize: 40,
-                valueChanged: (isFavorite) {
-                  print('Is Favorite : $isFavorite');
-                  if (isFavorite) {
-                    addPlaceToFavList(customerID, placeID);
-                  } else {
-                    removePlaceFromFavList(customerID, placeID);
-                  }
-                },
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.007,
-                  ),
-                  Text("${place.price} SAR",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(
-            height: height * 0.015,
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 class categoriesList extends StatelessWidget {
-  const categoriesList({
+  categoriesList({
     Key? key,
     required this.height,
     required this.width,
@@ -187,7 +97,13 @@ class categoriesList extends StatelessWidget {
 
   final double height;
   final double width;
-
+  List<String> myCategory = [
+    "Resort",
+    "Camping",
+    "Diwaniya",
+    "Apartment",
+    "Nature",
+  ];
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -212,137 +128,187 @@ class categoriesList extends StatelessWidget {
         child: ListView(
           scrollDirection: Axis.horizontal,
           children: [
-            Column(
-              children: [
-                SizedBox(
-                  width: width * 0.3,
-                ),
-                Image.asset('assets/5448204.png',
-                    height: height * 0.042, width: width * 0.15),
-                Container(
-                  // make border radius to 50 for container
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    color: Colors.white,
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ClickOnCategory(type: myCategory[0]),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                    child: Text(
-                      'Resorts',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
+                );
+              },
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: width * 0.3,
+                  ),
+                  Image.asset('assets/5448204.png',
+                      height: height * 0.042, width: width * 0.15),
+                  Container(
+                    // make border radius to 50 for container
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.white,
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                      child: Text(
+                        'Resorts',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(
               width: 5,
             ),
-            Column(
-              children: [
-                Image.asset('assets/2972209.png',
-                    height: height * 0.042, width: width * 0.15),
-                Container(
-                  // make border radius to 50 for container
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    color: Colors.white,
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ClickOnCategory(type: myCategory[1]),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                    child: Text(
-                      'Camping',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
+                );
+              },
+              child: Column(
+                children: [
+                  Image.asset('assets/2972209.png',
+                      height: height * 0.042, width: width * 0.15),
+                  Container(
+                    // make border radius to 50 for container
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.white,
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                      child: Text(
+                        'Camping',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(
               width: 20,
             ),
-            Column(
-              children: [
-                Image.asset('assets/1047490-200.png',
-                    height: height * 0.042, width: width * 0.15),
-                Container(
-                  // make border radius to 50 for container
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    color: Colors.white,
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ClickOnCategory(type: myCategory[2]),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                    child: Text(
-                      'Diwaniya',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
+                );
+              },
+              child: Column(
+                children: [
+                  Image.asset('assets/1047490-200.png',
+                      height: height * 0.042, width: width * 0.15),
+                  Container(
+                    // make border radius to 50 for container
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.white,
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                      child: Text(
+                        'Diwaniya',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(
               width: 20,
             ),
-            Column(
-              children: [
-                Image.asset('assets/appartment.png',
-                    height: height * 0.042, width: width * 0.15),
-                Container(
-                  // make border radius to 50 for container
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    color: Colors.white,
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ClickOnCategory(type: myCategory[3]),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                    child: Text(
-                      'Appartments',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
+                );
+              },
+              child: Column(
+                children: [
+                  Image.asset('assets/appartment.png',
+                      height: height * 0.042, width: width * 0.15),
+                  Container(
+                    // make border radius to 50 for container
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.white,
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                      child: Text(
+                        'Apartments',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(
               width: 20,
             ),
-            Column(
-              children: [
-                Image.asset(
-                    'assets/nature-icon-ecology-symbol-line-260nw-1316726654.jpg.png',
-                    height: 40,
-                    width: 40),
-                Container(
-                  // make border radius to 50 for container
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    color: Colors.white,
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ClickOnCategory(type: myCategory[4]),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                    child: Text(
-                      'Nature',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
+                );
+              },
+              child: Column(
+                children: [
+                  Image.asset(
+                      'assets/nature-icon-ecology-symbol-line-260nw-1316726654.jpg.png',
+                      height: 40,
+                      width: 40),
+                  Container(
+                    // make border radius to 50 for container
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.white,
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                      child: Text(
+                        'Nature',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

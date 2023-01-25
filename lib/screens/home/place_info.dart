@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:locare/data/models/Customer.dart';
 import 'package:locare/data/models/FacilitiesModels/BarbequeArea.dart';
 import 'package:locare/data/models/FacilitiesModels/LivingRoom.dart';
 import 'package:locare/data/models/FacilitiesModels/PlayGround.dart';
@@ -13,10 +16,22 @@ import 'package:locare/screens/home/select_date.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../data/models/Review.dart';
+import '../../data/repository/customer_rep.dart';
+import '../../widgets/review_card.dart';
+
 class PlaceInfo extends StatefulWidget {
-  PlaceInfo({super.key, required this.place});
-  String customerID = "ZykNyT0EtoA8M3ZNKT9L";
-  Place place;
+  PlaceInfo({
+    super.key,
+    required this.place,
+    required this.placeID,
+    // required this.isFav,
+  });
+  // String customerID = "ZykNyT0EtoA8M3ZNKT9L";
+
+  final Place place;
+  final String placeID;
+
   @override
   State<PlaceInfo> createState() => _PlaceInfoState();
 }
@@ -24,11 +39,12 @@ class PlaceInfo extends StatefulWidget {
 class _PlaceInfoState extends State<PlaceInfo>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-
+  List<dynamic> favList11 = [];
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+    favList11 = [];
   }
 
   @override
@@ -39,21 +55,23 @@ class _PlaceInfoState extends State<PlaceInfo>
 
   @override
   Widget build(BuildContext context) {
+    String customerID = FirebaseAuth.instance.currentUser!.uid;
+    bool isFav = false;
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-            child: IconButton(
-              icon: const Icon(
-                Icons.favorite_border,
-                color: Colors.white,
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              SizedBox(
+                  height: height * 0.45, child: placeImages(width, height)),
+              AppBar(
+                backgroundColor: Color(0xFF345EA8),
+                elevation: 0,
+                toolbarHeight: 0,
               ),
               onPressed: () {
                 // setState(() {
@@ -182,26 +200,33 @@ class _PlaceInfoState extends State<PlaceInfo>
                         Icons.star_border,
                         color: Colors.yellow,
                       ),
-                Text(
-                  "${widget.place.reviews?.length.toString()} reviews",
-                  style: TextStyle(fontSize: 14),
-                  textAlign: TextAlign.right,
-                ),
               ],
             )
           ],
         ),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('45 kilometers away ',
+            Text(widget.place.type,
                 style: TextStyle(fontSize: 18, color: Colors.grey),
                 textAlign: TextAlign.left),
-            Icon(Icons.share, color: Colors.grey),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  "${widget.place.reviews!.length.toString()} reviews",
+                  style: TextStyle(fontSize: 14),
+                  textAlign: TextAlign.right,
+                ),
+              ],
+            ),
           ],
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+          padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -209,17 +234,23 @@ class _PlaceInfoState extends State<PlaceInfo>
                 height: height * 0.01,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.location_on, color: Colors.black54),
-                  Text(widget.place.address,
-                      style: TextStyle(fontSize: 18, color: Colors.grey),
-                      textAlign: TextAlign.left),
+                  Row(
+                    children: [
+                      Icon(Icons.location_on, color: Colors.black54),
+                      Text(" " + widget.place.address,
+                          style: TextStyle(fontSize: 18, color: Colors.grey),
+                          textAlign: TextAlign.left),
+                    ],
+                  ),
+                  Icon(Icons.share, color: Colors.grey),
                 ],
               ),
               Row(
                 children: [
                   Icon(Icons.space_bar, color: Colors.black54),
-                  Text('${widget.place.area} m²',
+                  Text(' ${widget.place.area} m²',
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                       textAlign: TextAlign.left),
                 ],
@@ -341,7 +372,77 @@ class _PlaceInfoState extends State<PlaceInfo>
             fontSize: 24,
           ),
           textAlign: TextAlign.left,
-        )
+        ),
+        // Column(
+        //   children: [
+        //     for (var review in widget.place.reviews!)
+        //       ReviewCard(
+        //         review: review,
+        //       ),
+        //   ],
+        // ),
+        StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection("place")
+                .doc(widget.placeID)
+                .collection("Reviews")
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    Review review =
+                        Review.fromJson(snapshot.data!.docs[index].data());
+                    return ReviewCard(
+                      review: review,
+                    );
+                  },
+                );
+              } else {
+                return Text('No reviews yet');
+              }
+            }),
+        ReviewCard(
+          review: Review(
+            placeID: widget.placeID,
+            userID: FirebaseAuth.instance.currentUser!.uid,
+            rating: 5,
+            comment: 'This is a comment',
+            date: DateTime.now(),
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => null,
+            //   ),
+            // );
+          },
+          child: Container(
+            height: height * 0.07,
+            width: width * 0.9,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.add),
+                Text(
+                  'Add a review',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: height * 0.05,
+        ),
       ],
     );
   }
