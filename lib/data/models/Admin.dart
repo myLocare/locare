@@ -5,22 +5,14 @@ class Admin {
   final db = FirebaseFirestore.instance;
   static Admin admin = Admin();
 
-  void addPlace(Place place) async {
-    await db.collection('place').add({
-      'name': place.name,
-      'description': place.description,
-      'images': place.images,
-      'address': place.address,
-      'isVerified': place.isVerified,
-      'ownerID': place.ownerID,
-      'reviews': place.reviews,
-      'facilities': place.facilities,
-      'area': place.area,
-      'price': place.price,
-      'type': place.type,
-      'rating': place.rating,
-    });
-    print("The place has been added");
+  Future addPlace(Place place) async {
+    await db
+        .collection('place')
+        .add(place.toJSON())
+        .then(
+            (value) => print("Place added successfully")) // success toast here
+        .catchError(
+            (error) => print("Failed to add: $error")); // fail toast here
   }
 
   Future<List<Place>> getPlace() async {

@@ -42,58 +42,41 @@ class _PlaceInfoState extends State<PlaceInfo>
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+            child: IconButton(
+              icon: const Icon(
+                Icons.favorite_border,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                // setState(() {
+                //   widget.place. = !widget.place.isFavorite;
+                // });
+              },
+            ),
+          ),
+        ],
+      ),
+      // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(
         children: [
-          Stack(
-            children: [
-              SizedBox(
-                  height: height * 0.45, child: placeImages(width, height)),
-              AppBar(
-                backgroundColor: Color(0xFF345EA8),
-                elevation: 0,
-                toolbarHeight: 0,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 80, 20, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                      ),
-                    ),
-                    // favorite button
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                      child: GestureDetector(
-                        onTap: () {
-                          // setState(() {
-                          //   widget.place.isFavorite =
-                          //       !widget.place.isFavorite;
-                          // });
-                        },
-                        child: Icon(
-                          // widget.place.isFavorite
-                          // ? Icons.favorite
-                          Icons.favorite_border,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          Container(
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              clipBehavior: Clip.none,
+              children: [
+                placeImages(width, height),
+              ],
+            ),
           ),
-          Expanded(
-            child: placeContent(height, width),
-          ),
+          Expanded(child: placeContent(height, width))
         ],
       ),
       bottomNavigationBar: Container(
@@ -146,25 +129,25 @@ class _PlaceInfoState extends State<PlaceInfo>
     );
   }
 
-  ListView placeImages(double width, double height) {
-    return ListView(
-      children: [
-        CarouselSlider(
-          options: CarouselOptions(
-            height: height * 0.4,
-            viewportFraction: 1,
-            scrollDirection: Axis.horizontal,
-          ),
-          items: [
-            for (var i = 0; i < widget.place.images.length; i++)
-              Container(
-                width: width,
-                child: PhotoView(
-                  imageProvider: NetworkImage(widget.place.images[i]),
-                ),
+  CarouselSlider placeImages(double width, double height) {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: height * 0.35,
+        aspectRatio: 1,
+        viewportFraction: 1,
+        scrollDirection: Axis.horizontal,
+      ),
+      items: [
+        for (var i = 0; i < widget.place.images.length; i++)
+          Container(
+            width: width,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage("${widget.place.images[i]}"),
               ),
-          ],
-        )
+            ),
+          ),
       ],
     );
   }

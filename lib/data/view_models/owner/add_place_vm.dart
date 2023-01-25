@@ -7,12 +7,6 @@ import 'package:locare/data/models/FacilitiesModels/wifi.dart';
 import 'package:locare/data/models/Facility.dart';
 
 class AddPlaceVm {
-  //   Facility pool = Pool();
-  // Facility wifi = Wifi();
-  // Facility kitchen = Kitchen();
-  // Facility livingRoom = LivingRoom();
-  // Facility playGround = PlayGround();
-  // Facility barbequeArea = BarbequeArea();
   static List<Facility> facilities = [
     Pool(),
     Wifi(),

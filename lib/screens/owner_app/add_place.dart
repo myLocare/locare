@@ -116,9 +116,9 @@ class _OwnerAddPlaceState extends State<OwnerAddPlace> {
       'Pool': AddPlaceVm.facilities[0].numberOfItems,
       'Wifi': AddPlaceVm.facilities[1].numberOfItems,
       'Kitchen': AddPlaceVm.facilities[2].numberOfItems,
-      'Living Room': AddPlaceVm.facilities[3].numberOfItems,
-      'Play Ground': AddPlaceVm.facilities[4].numberOfItems,
-      'Barbeque Area': AddPlaceVm.facilities[5].numberOfItems,
+      'LivingRoom': AddPlaceVm.facilities[3].numberOfItems,
+      'PlayGround': AddPlaceVm.facilities[4].numberOfItems,
+      'BarbequeArea': AddPlaceVm.facilities[5].numberOfItems,
     };
 
     facilitiesMap.removeWhere((key, value) => value == 0);
@@ -505,7 +505,7 @@ class _OwnerAddPlaceState extends State<OwnerAddPlace> {
             ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  Place tempPlace = Place(
+                  Place ownerPlace = Place(
                     name: widget._name.text,
                     ownerID: '69',
                     description: widget._description.text,
@@ -513,14 +513,14 @@ class _OwnerAddPlaceState extends State<OwnerAddPlace> {
                     area: double.parse(widget._area.text),
                     type: selectedValue,
                     facilities: facilitiesMap,
-                    images: [],
+                    images: imgURL,
                     isVerified: false,
                     price: double.parse(widget._price.text),
                     rating: 0,
                     reviews: [],
                     reservationList: [],
                   );
-                  Admin.admin.addPlace(tempPlace);
+                  Admin.admin.addPlace(ownerPlace);
                 }
               },
               style: ElevatedButton.styleFrom(

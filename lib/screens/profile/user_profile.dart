@@ -24,20 +24,20 @@ class ProfileView extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          StreamBuilder(
-            stream: customerInfo.snapshots(),
-            builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-              if (snapshot.hasData) {
-                return Text(
-                  ('ID: ${user.uid}\nEmail: ${user.email}\nName: ${snapshot.data!.get('name')}\nCity: ${snapshot.data!.get('city')}\nPhone Number: ${snapshot.data!.get('phoneNumber')}'),
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.left,
-                );
-              } else {
-                return Text('Loading...');
-              }
-            },
-          ),
+          // StreamBuilder(
+          //   stream: customerInfo.snapshots(),
+          //   builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          //     if (snapshot.hasData) {
+          //       return Text(
+          //         ('ID: ${user.uid}\nEmail: ${user.email}\nName: ${snapshot.data!.get('name')}\nCity: ${snapshot.data!.get('city')}\nPhone Number: ${snapshot.data!.get('phoneNumber')}'),
+          //         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          //         textAlign: TextAlign.left,
+          //       );
+          //     } else {
+          //       return Text('Loading...');
+          //     }
+          //   },
+          // ),
           SizedBox(
             height: 20,
           ),
