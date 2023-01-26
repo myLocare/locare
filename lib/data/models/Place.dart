@@ -1,3 +1,5 @@
+import 'Review.dart';
+
 class Place {
   String name;
   String description;
@@ -11,6 +13,14 @@ class Place {
   String type;
   double rating = 0.0;
   List<String>? reservationList = [];
+
+  // Map<String, dynamic> review = Review(
+  //         placeID: " ",
+  //         customerID: " ",
+  //         rating: 1,
+  //         comment: " ",
+  //         date: DateTime.now())
+  //     .toJson();
 
   Place({
     required this.name,

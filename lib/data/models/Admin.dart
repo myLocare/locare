@@ -1,18 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'Place.dart';
+import 'Review.dart';
 
 class Admin {
   final db = FirebaseFirestore.instance;
   static Admin admin = Admin();
 
   Future addPlace(Place place) async {
+    var docID;
+    var dd = await db.collection('place').add(place.toJSON()).then((value) {
+      docID = value.id;
+      print(docID);
+    } // success toast here
+        );
+    Review review = Review(
+      placeID: place.name,
+      rating: 0,
+      customerID: "empty",
+      comment: "empty",
+      date: DateTime.now(),
+    );
     await db
-        .collection('place')
-        .add(place.toJSON())
-        .then(
-            (value) => print("Place added successfully")) // success toast here
-        .catchError(
-            (error) => print("Failed to add: $error")); // fail toast here
+        .collection("place")
+        .doc(docID)
+        .collection("Reviews")
+        .doc()
+        .set(review.toJson() // add review to the place
+            );
   }
 
   Future<List<Place>> getPlace() async {

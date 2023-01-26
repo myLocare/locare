@@ -403,29 +403,23 @@ class _PlaceInfoState extends State<PlaceInfo>
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) {
-                    Review review =
-                        Review.fromJson(snapshot.data!.docs[index].data());
-                    return ReviewCard(
-                      review: review,
-                    );
-                  },
+                print(snapshot.data!.docs);
+                print(snapshot.data!.docs.length);
+                return Column(
+                  children: [
+                    for (var i = 0; i < snapshot.data!.docs.length; i++)
+                      ReviewCard(
+                        review: Review.fromJson(snapshot.data!.docs[i].data()),
+                      ),
+                  ],
                 );
               } else {
-                return Text('No reviews yet');
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
             }),
-        ReviewCard(
-          review: Review(
-            placeID: widget.placeID,
-            userID: FirebaseAuth.instance.currentUser!.uid,
-            rating: 5,
-            comment: 'This is a comment',
-            date: DateTime.now(),
-          ),
-        ),
+
         InkWell(
           onTap: () {
             // Navigator.push(
