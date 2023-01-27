@@ -127,417 +127,420 @@ class _OwnerAddPlaceState extends State<OwnerAddPlace> {
     // print(selectedValue);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
         backgroundColor: Colors.white,
-        toolbarHeight: height * 0.045,
-        title: Text(
-          'Add a place',
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-          textAlign: TextAlign.center,
-        ),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          toolbarHeight: height * 0.045,
+          title: Text(
+            'Add a place',
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+            textAlign: TextAlign.center,
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Center(
-          child: Column(
-            children: [
-              const Text(
-                'Tell us about your place !',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w100),
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Expanded(
-                child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        topRight: Radius.circular(50),
+        body: Form(
+          key: _formKey,
+          child: Center(
+            child: Column(
+              children: [
+                const Text(
+                  'Tell us about your place !',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w100),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Expanded(
+                  child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 12.0,
+                            spreadRadius: -5.0,
+                            offset: Offset(
+                                0.0, -3.0), // shadow direction: bottom right
+                          )
+                        ],
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 12.0,
-                          spreadRadius: -5.0,
-                          offset: Offset(
-                              0.0, -3.0), // shadow direction: bottom right
-                        )
-                      ],
-                    ),
-                    child: Center(
-                        child: Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
-                            child: ListView(
-                              children: [
-                                const Text(
-                                  'Place name',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w100),
-                                ),
-                                TextFormField(
-                                  controller: widget._name,
-                                  decoration: const InputDecoration(
-                                    hintText: 'What is your place called?',
-                                  ),
-                                  validator: (text) {
-                                    if (text == null || text.isEmpty) {
-                                      return 'حط اسم يا جرار';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                const Text(
-                                  'Place type',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w100),
-                                ),
-                                DropdownButtonFormField2(
-                                  dropdownMaxHeight: height * 0.3,
-                                  dropdownDecoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 10.0,
-                                        spreadRadius: 2.0,
-                                        offset: Offset(0.0,
-                                            3.0), // shadow direction: bottom right
-                                      )
-                                    ],
-                                  ),
-                                  hint: Text(
-                                    'Select Item',
+                      child: Center(
+                          child: Padding(
+                              padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+                              child: ListView(
+                                children: [
+                                  const Text(
+                                    'Place name',
                                     style: TextStyle(
-                                      fontSize: 14,
-                                      color: Theme.of(context).hintColor,
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w100),
+                                  ),
+                                  TextFormField(
+                                    controller: widget._name,
+                                    decoration: const InputDecoration(
+                                      hintText: 'What is your place called?',
+                                    ),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'حط اسم يا جرار';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  const Text(
+                                    'Place type',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w100),
+                                  ),
+                                  DropdownButtonFormField2(
+                                    dropdownMaxHeight: height * 0.3,
+                                    dropdownDecoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.grey,
+                                          blurRadius: 10.0,
+                                          spreadRadius: 2.0,
+                                          offset: Offset(0.0,
+                                              3.0), // shadow direction: bottom right
+                                        )
+                                      ],
+                                    ),
+                                    hint: Text(
+                                      'Select Item',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Theme.of(context).hintColor,
+                                      ),
+                                    ),
+                                    items: items
+                                        .map((item) => DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Text(
+                                                item,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ))
+                                        .toList(),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'Text is empty';
+                                      }
+                                      return null;
+                                    },
+                                    // value: selectedValue,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        selectedValue = value!;
+                                      });
+                                    },
+                                    buttonWidth: 140,
+                                    itemHeight: 40,
+                                  ),
+
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  const Text(
+                                    'Place area',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w100),
+                                  ),
+                                  TextFormField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                    keyboardType: TextInputType.number,
+                                    controller: widget._area,
+                                    decoration: const InputDecoration(
+                                      hintText: 'How many square meters?',
+                                    ),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'Text is empty';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  const Text(
+                                    'Place price',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w100),
+                                  ),
+                                  TextFormField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                    keyboardType: TextInputType.number,
+                                    controller: widget._price,
+                                    decoration: const InputDecoration(
+                                      hintText: 'How much is your place?',
+                                    ),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'Text is empty';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  const Text(
+                                    'Place description',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w100),
+                                  ),
+                                  SizedBox(height: 10),
+
+                                  TextFormField(
+                                    // keyboardType: TextInputType.multiline,
+                                    maxLines: 5,
+                                    controller: widget._description,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      hintText: 'Describe your place',
+                                    ),
+                                    validator: (text) {
+                                      if (text == null || text.isEmpty) {
+                                        return 'Text is empty';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  const Text(
+                                    'Facilities',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w100),
+                                  ),
+
+                                  //horizontal list
+                                  SizedBox(
+                                    height: 100,
+                                    child: ListView(
+                                      scrollDirection: Axis.horizontal,
+                                      children: [
+                                        FacilityCard(
+                                            facility: AddPlaceVm.facilities[0],
+                                            onTapIncreament: () {
+                                              incrementNumberOfItems(0);
+                                            },
+                                            onTapDecreament: () {
+                                              decrementNumberOfItems(0);
+                                            }),
+                                        FacilityCard(
+                                            facility: AddPlaceVm.facilities[1],
+                                            onTapIncreament: () {
+                                              incrementNumberOfItems(1);
+                                            },
+                                            onTapDecreament: () {
+                                              decrementNumberOfItems(1);
+                                            }),
+                                        FacilityCard(
+                                            facility: AddPlaceVm.facilities[2],
+                                            onTapIncreament: () {
+                                              incrementNumberOfItems(2);
+                                            },
+                                            onTapDecreament: () {
+                                              decrementNumberOfItems(2);
+                                            }),
+                                        FacilityCard(
+                                            facility: AddPlaceVm.facilities[3],
+                                            onTapIncreament: () {
+                                              incrementNumberOfItems(3);
+                                            },
+                                            onTapDecreament: () {
+                                              decrementNumberOfItems(3);
+                                            }),
+                                        FacilityCard(
+                                            facility: AddPlaceVm.facilities[4],
+                                            onTapIncreament: () {
+                                              incrementNumberOfItems(4);
+                                            },
+                                            onTapDecreament: () {
+                                              decrementNumberOfItems(4);
+                                            }),
+                                        FacilityCard(
+                                            facility: AddPlaceVm.facilities[5],
+                                            onTapIncreament: () {
+                                              incrementNumberOfItems(5);
+                                            },
+                                            onTapDecreament: () {
+                                              decrementNumberOfItems(5);
+                                            }),
+                                      ],
                                     ),
                                   ),
-                                  items: items
-                                      .map((item) => DropdownMenuItem<String>(
-                                            value: item,
-                                            child: Text(
-                                              item,
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ))
-                                      .toList(),
-                                  validator: (text) {
-                                    if (text == null || text.isEmpty) {
-                                      return 'Text is empty';
-                                    }
-                                    return null;
-                                  },
-                                  // value: selectedValue,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      selectedValue = value!;
-                                    });
-                                  },
-                                  buttonWidth: 140,
-                                  itemHeight: 40,
-                                ),
-
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                const Text(
-                                  'Place area',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w100),
-                                ),
-                                TextFormField(
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly
-                                  ],
-                                  keyboardType: TextInputType.number,
-                                  controller: widget._area,
-                                  decoration: const InputDecoration(
-                                    hintText: 'How many square meters?',
+                                  const SizedBox(
+                                    height: 20,
                                   ),
-                                  validator: (text) {
-                                    if (text == null || text.isEmpty) {
-                                      return 'Text is empty';
-                                    }
-                                    return null;
-                                  },
-                                ),
-
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                const Text(
-                                  'Place price',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w100),
-                                ),
-                                TextFormField(
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly
-                                  ],
-                                  keyboardType: TextInputType.number,
-                                  controller: widget._price,
-                                  decoration: const InputDecoration(
-                                    hintText: 'How much is your place?',
-                                  ),
-                                  validator: (text) {
-                                    if (text == null || text.isEmpty) {
-                                      return 'Text is empty';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                const Text(
-                                  'Place description',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w100),
-                                ),
-                                SizedBox(height: 10),
-
-                                TextFormField(
-                                  // keyboardType: TextInputType.multiline,
-                                  maxLines: 5,
-                                  controller: widget._description,
-                                  decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    hintText: 'Describe your place',
-                                  ),
-                                  validator: (text) {
-                                    if (text == null || text.isEmpty) {
-                                      return 'Text is empty';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                const Text(
-                                  'Facilities',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w100),
-                                ),
-
-                                //horizontal list
-                                SizedBox(
-                                  height: 100,
-                                  child: ListView(
-                                    scrollDirection: Axis.horizontal,
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      FacilityCard(
-                                          facility: AddPlaceVm.facilities[0],
-                                          onTapIncreament: () {
-                                            incrementNumberOfItems(0);
-                                          },
-                                          onTapDecreament: () {
-                                            decrementNumberOfItems(0);
-                                          }),
-                                      FacilityCard(
-                                          facility: AddPlaceVm.facilities[1],
-                                          onTapIncreament: () {
-                                            incrementNumberOfItems(1);
-                                          },
-                                          onTapDecreament: () {
-                                            decrementNumberOfItems(1);
-                                          }),
-                                      FacilityCard(
-                                          facility: AddPlaceVm.facilities[2],
-                                          onTapIncreament: () {
-                                            incrementNumberOfItems(2);
-                                          },
-                                          onTapDecreament: () {
-                                            decrementNumberOfItems(2);
-                                          }),
-                                      FacilityCard(
-                                          facility: AddPlaceVm.facilities[3],
-                                          onTapIncreament: () {
-                                            incrementNumberOfItems(3);
-                                          },
-                                          onTapDecreament: () {
-                                            decrementNumberOfItems(3);
-                                          }),
-                                      FacilityCard(
-                                          facility: AddPlaceVm.facilities[4],
-                                          onTapIncreament: () {
-                                            incrementNumberOfItems(4);
-                                          },
-                                          onTapDecreament: () {
-                                            decrementNumberOfItems(4);
-                                          }),
-                                      FacilityCard(
-                                          facility: AddPlaceVm.facilities[5],
-                                          onTapIncreament: () {
-                                            incrementNumberOfItems(5);
-                                          },
-                                          onTapDecreament: () {
-                                            decrementNumberOfItems(5);
-                                          }),
+                                      const Text(
+                                        'Place Images',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w100),
+                                      ),
+                                      // Text(
+                                      //   '${selectedImagesFilesLength}',
+                                      //   style: TextStyle(
+                                      //       fontSize: 16,
+                                      //       color: Colors.blue,
+                                      //       fontWeight: FontWeight.w100),
+                                      // ),
+                                      FloatingActionButton(
+                                        heroTag: null,
+                                        elevation: 0,
+                                        mini: true,
+                                        onPressed: getImage,
+                                        backgroundColor: Color(0xF5F5F5F5),
+                                        child: const Icon(Icons.photo,
+                                            color: Colors.black),
+                                      ),
                                     ],
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Place Images',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w100),
-                                    ),
-                                    // Text(
-                                    //   '${selectedImagesFilesLength}',
-                                    //   style: TextStyle(
-                                    //       fontSize: 16,
-                                    //       color: Colors.blue,
-                                    //       fontWeight: FontWeight.w100),
-                                    // ),
-                                    FloatingActionButton(
-                                      heroTag: null,
-                                      elevation: 0,
-                                      mini: true,
-                                      onPressed: getImage,
-                                      backgroundColor: Color(0xF5F5F5F5),
-                                      child: const Icon(Icons.photo,
-                                          color: Colors.black),
-                                    ),
-                                  ],
-                                ),
 
-                                const SizedBox(
-                                  height: 20,
-                                ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
 
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Where is your place?',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w100),
-                                    ),
-                                    FloatingActionButton(
-                                      heroTag: null,
-                                      elevation: 0,
-                                      mini: true,
-                                      onPressed: () {
-                                        print("انا في موت");
-                                      },
-                                      backgroundColor: Color(0xF5F5F5F5),
-                                      child: const Icon(Icons.location_on,
-                                          color: Colors.black),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                              ],
-                            )))),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        'Where is your place?',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w100),
+                                      ),
+                                      FloatingActionButton(
+                                        heroTag: null,
+                                        elevation: 0,
+                                        mini: true,
+                                        onPressed: () {
+                                          print("انا في موت");
+                                        },
+                                        backgroundColor: Color(0xF5F5F5F5),
+                                        child: const Icon(Icons.location_on,
+                                            color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                              )))),
+                )
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 12.0,
+                spreadRadius: -5.0,
+                offset: Offset(0.0, -3.0), // shadow direction: bottom right
               )
             ],
           ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 12.0,
-              spreadRadius: -5.0,
-              offset: Offset(0.0, -3.0), // shadow direction: bottom right
-            )
-          ],
-        ),
-        height: height * 0.1,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            //make button
-            ElevatedButton(
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  Place ownerPlace = Place(
-                    name: widget._name.text,
-                    ownerID: '69',
-                    description: widget._description.text,
-                    address: 'Dammam',
-                    area: double.parse(widget._area.text),
-                    type: selectedValue,
-                    facilities: facilitiesMap,
-                    images: imgURL,
-                    isVerified: false,
-                    price: double.parse(widget._price.text),
-                    rating: 0,
-                    reservationList: [],
-                  );
-                  Admin.admin.addPlace(ownerPlace);
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: const Color(0xFF345EA8),
-                minimumSize: const Size(190, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
+          height: height * 0.1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              //make button
+              ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    Place ownerPlace = Place(
+                      name: widget._name.text,
+                      ownerID: '69',
+                      description: widget._description.text,
+                      address: 'Dammam',
+                      area: double.parse(widget._area.text),
+                      type: selectedValue,
+                      facilities: facilitiesMap,
+                      images: imgURL,
+                      isVerified: false,
+                      price: double.parse(widget._price.text),
+                      rating: 0,
+                      reservationList: [],
+                    );
+                    Admin.admin.addPlace(ownerPlace);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: const Color(0xFF345EA8),
+                  minimumSize: const Size(190, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                ),
+                child: const Text(
+                  'Confirm',
+                  style: TextStyle(fontSize: 20),
                 ),
               ),
-              child: const Text(
-                'Confirm',
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
 
-            //price
-          ],
+              //price
+            ],
+          ),
         ),
       ),
     );

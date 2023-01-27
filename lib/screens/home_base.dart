@@ -68,10 +68,11 @@ class _HomeBodyState extends State<HomeBody> {
           backgroundColor: const Color(0xFF345EA8),
           elevation: 0,
         ),
-        body: IndexedStack(
-          index: _Index,
-          children: _pages,
-        ),
+        // body: IndexedStack(
+        //   index: _Index,
+        //   children: _pages,
+        // ),
+        body: _pages[_Index],
         bottomNavigationBar: Container(
           height: height * 0.08,
           color: Color(0xFF345EA8),

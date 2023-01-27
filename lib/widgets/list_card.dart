@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import '../data/models/Place.dart';
 import '../screens/home/place_info.dart';
@@ -47,10 +49,21 @@ class listCard1 extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                place.images[0],
-                fit: BoxFit.cover,
-              ),
+              child: Image.network(place.images[0], fit: BoxFit.cover,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                // Appropriate logging or analytics, e.g.
+                // myAnalytics.recordError(
+                //   'An error occurred loading "https://example.does.not.exist/image.jpg"',
+                //   exception,
+                //   stackTrace,
+                // );
+                return Center(
+                    child: Text(
+                  'Something went wrong \nCouldn\'t get the image from the server',
+                  textAlign: TextAlign.center,
+                ));
+              }),
             ),
           ),
           SizedBox(

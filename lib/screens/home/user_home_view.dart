@@ -27,62 +27,66 @@ class _UserBodyState extends State<UserBody> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Container(
-      width: width,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(50),
-          topRight: Radius.circular(50),
-        ),
-        color: Colors.white,
-      ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Container(
+        width: width,
         decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(50)),
-        ),
-        child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(30, 30, 30, 20),
-            child: searchBar(height: height),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(50),
+            topRight: Radius.circular(50),
           ),
-          categoriesList(height: height, width: width),
-          const SizedBox(height: 10),
-          Expanded(
-              child: StreamBuilder(
-            stream: FirebaseFirestore.instance.collection('place').snapshots(),
-            builder: (context,
-                AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-              if (snapshot.hasError) {
-                return Text('Something went wrong');
-              }
+          color: Colors.white,
+        ),
+        child: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+          ),
+          child: Column(children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30, 30, 30, 20),
+              child: searchBar(height: height),
+            ),
+            categoriesList(height: height, width: width),
+            const SizedBox(height: 10),
+            Expanded(
+                child: StreamBuilder(
+              stream:
+                  FirebaseFirestore.instance.collection('place').snapshots(),
+              builder: (context,
+                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Something went wrong');
+                }
 
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                  child: ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        Place place =
+                            Place.fromJson(snapshot.data!.docs[index].data());
+                        if (place.isVerified) {
+                          return listCard1(
+                            context: context,
+                            place: place,
+                            placeID: snapshot.data!.docs[index].id,
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      }),
                 );
-              }
-
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                child: ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      Place place =
-                          Place.fromJson(snapshot.data!.docs[index].data());
-                      if (place.isVerified) {
-                        return listCard1(
-                          context: context,
-                          place: place,
-                          placeID: snapshot.data!.docs[index].id,
-                        );
-                      } else {
-                        return const SizedBox();
-                      }
-                    }),
-              );
-            },
-          )),
-        ]),
+              },
+            )),
+          ]),
+        ),
       ),
     );
   }
