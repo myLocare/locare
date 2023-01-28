@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +14,12 @@ import 'package:locare/data/models/Place.dart';
 import 'package:locare/screens/home/select_date.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
+import 'package:slide_popup_dialog_null_safety/slide_popup_dialog.dart'
+    as slideDialog;
 import '../../data/models/Review.dart';
 import '../../data/repository/customer_rep.dart';
 import '../../widgets/review_card.dart';
+import '../../widgets/review_popup.dart';
 
 class PlaceInfo extends StatefulWidget {
   PlaceInfo({
@@ -61,6 +62,7 @@ class _PlaceInfoState extends State<PlaceInfo>
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       //make an appbar with a back button
       appBar: AppBar(
         elevation: 0,
@@ -74,7 +76,7 @@ class _PlaceInfoState extends State<PlaceInfo>
         ],
       ),
 
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
       // body: Column(
       //   children: [
@@ -420,31 +422,26 @@ class _PlaceInfoState extends State<PlaceInfo>
               }
             }),
 
-        InkWell(
-          onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => null,
-            //   ),
-            // );
-          },
-          child: Container(
-            height: height * 0.07,
-            width: width * 0.9,
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.add),
-                Text(
-                  'Add a review',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ],
+        SingleChildScrollView(
+          child: InkWell(
+            onTap: _showDialog,
+            child: Container(
+              height: height * 0.07,
+              width: width * 0.9,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.add),
+                  Text(
+                    'Add a review',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -452,6 +449,16 @@ class _PlaceInfoState extends State<PlaceInfo>
           height: height * 0.05,
         ),
       ],
+    );
+  }
+
+  void _showDialog() {
+    slideDialog.showSlideDialog(
+      context: context,
+      child: ReviewPopup(),
+      barrierColor: Colors.white.withOpacity(0.7),
+      pillColor: Colors.grey,
+      backgroundColor: Colors.white,
     );
   }
 }
