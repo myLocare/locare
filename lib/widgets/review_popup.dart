@@ -1,13 +1,28 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:locare/data/repository/review_repository.dart';
+
+import '../data/models/Place.dart';
+import '../data/models/Review.dart';
 
 class ReviewPopup extends StatefulWidget {
-  const ReviewPopup({super.key});
-
+  ReviewPopup({super.key, required this.place, required this.placeID});
+  Place place;
+  String placeID;
+  TextEditingController commentController = TextEditingController();
+  int rating = 0;
   @override
   State<ReviewPopup> createState() => _ReviewPopupState();
+
+  void dispose() {
+    commentController.dispose();
+  }
 }
 
 class _ReviewPopupState extends State<ReviewPopup> {
@@ -42,8 +57,10 @@ class _ReviewPopupState extends State<ReviewPopup> {
                 Icons.star,
                 color: Colors.amber,
               ),
-              onRatingUpdate: (rating) {
-                print(rating);
+              onRatingUpdate: (value) {
+                setState(() {
+                  widget.rating = value.toInt();
+                });
               },
             ),
           ),
@@ -59,6 +76,7 @@ class _ReviewPopupState extends State<ReviewPopup> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
+              controller: widget.commentController,
             ),
           ),
           SizedBox(height: 4),
@@ -75,10 +93,17 @@ class _ReviewPopupState extends State<ReviewPopup> {
               ],
             ),
           ),
-          // submit button
-          // ignore overflow error
           InkWell(
-            onTap: () {},
+            onTap: () {
+              ReviewRepo.addReview(widget.place, widget.placeID,
+                  widget.commentController.text, widget.rating);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Review submitted!"),
+                ),
+              );
+              Navigator.pop(context);
+            },
             child: Container(
               width: width * 0.8,
               height: height * 0.05,

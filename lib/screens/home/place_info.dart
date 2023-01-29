@@ -189,6 +189,7 @@ class _PlaceInfoState extends State<PlaceInfo>
   ListView placeContent(double height, double width) {
     var keys = widget.place.facilities!.keys;
     return ListView(
+      shrinkWrap: true,
       padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
       scrollDirection: Axis.vertical,
       children: [
@@ -455,7 +456,7 @@ class _PlaceInfoState extends State<PlaceInfo>
   void _showDialog() {
     slideDialog.showSlideDialog(
       context: context,
-      child: ReviewPopup(),
+      child: ReviewPopup(place: widget.place, placeID: widget.placeID),
       barrierColor: Colors.white.withOpacity(0.7),
       pillColor: Colors.grey,
       backgroundColor: Colors.white,
