@@ -15,14 +15,14 @@ import 'package:locare/widgets/custom_textformfield.dart';
 import '../../../widgets/custom_button.dart';
 import '../login/user/user_login_view.dart';
 
-class UserSignUpView extends StatefulWidget {
-  const UserSignUpView({super.key});
+class OwnerSignUpView extends StatefulWidget {
+  const OwnerSignUpView({super.key});
 
   @override
-  State<UserSignUpView> createState() => _UserSignUpViewState();
+  State<OwnerSignUpView> createState() => _OwnerSignUpViewState();
 }
 
-class _UserSignUpViewState extends State<UserSignUpView> {
+class _OwnerSignUpViewState extends State<OwnerSignUpView> {
   final formKey = GlobalKey<FormState>();
   final userEmailController = TextEditingController();
   final userPasswordController = TextEditingController();
@@ -55,7 +55,7 @@ class _UserSignUpViewState extends State<UserSignUpView> {
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/loginBG.png"),
+                image: AssetImage("assets/ownerBG.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -199,7 +199,8 @@ class _UserSignUpViewState extends State<UserSignUpView> {
                           child: GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const LoginView()));
+                                  builder: (context) =>
+                                      const OwnerLoginView()));
                             },
                             child: Text(' Login',
                                 style: TextStyle(
@@ -286,10 +287,10 @@ class _UserSignUpViewState extends State<UserSignUpView> {
                           ),
                           onPressed: (() {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const OwnerLoginView()));
+                                builder: (context) => const LoginView()));
                           }),
                           child: Text(
-                            'Sign in as owner',
+                            'Sign in as user',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize:

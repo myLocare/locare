@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:locare/screens/login/user/user_login_view.dart';
 import 'package:locare/screens/owner_app/owner_home_body.dart';
+import 'package:locare/screens/signup/owner_signup_view.dart';
 import 'package:locare/widgets/custom_textfield.dart';
 
 import '../../../widgets/custom_button.dart';
+import '../../signup/user_signup_view.dart';
 
 class OwnerLoginView extends StatefulWidget {
   const OwnerLoginView({super.key});
@@ -36,7 +38,7 @@ class _OwnerLoginViewState extends State<OwnerLoginView> {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/loginBG.png"),
+              image: AssetImage("assets/ownerBG.png"),
               fit: BoxFit.cover,
             ),
           ),
@@ -138,21 +140,36 @@ class _OwnerLoginViewState extends State<OwnerLoginView> {
                     ),
                     RichText(
                       text: TextSpan(
-                        text: 'Don\'t have an account yet? ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.017,
-                        ),
                         children: [
                           TextSpan(
-                            recognizer: TapGestureRecognizer(),
-                            // ..onTap = widget.onClickedSignup,
-                            text: 'Sign Up',
+                            text: 'Don\'t have an account yet?',
                             style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Color(0xffF9A826),
+                              color: Colors.white,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.017,
                             ),
-                          )
+                          ),
+                          WidgetSpan(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const OwnerSignUpView(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                ' Sign Up',
+                                style: TextStyle(
+                                  color: Color(0xffF9A826),
+                                  decoration: TextDecoration.underline,
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.017,
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -191,43 +208,25 @@ class _OwnerLoginViewState extends State<OwnerLoginView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        // IconButton(
-                        //     // add width and hieght
-                        //     iconSize: MediaQuery.of(context).size.height * 0.1,
-                        //     onPressed: () {},
-                        //     icon: SvgPicture.asset(
-                        //       'assets/google.svg',
-                        //       width: MediaQuery.of(context).size.height * 0.1,
-                        //       height: MediaQuery.of(context).size.height * 0.1,
-                        //     )),
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
-                              shape: CircleBorder(), //<-- SEE HERE
-                              padding: EdgeInsets.all(20),
-                            ),
+                        IconButton(
+                            // add width and hieght
+                            iconSize: MediaQuery.of(context).size.height * 0.1,
                             onPressed: () {},
-                            child: SvgPicture.asset(
+                            icon: SvgPicture.asset(
                               'assets/google.svg',
-                              width: MediaQuery.of(context).size.height * 0.06,
-                              height: MediaQuery.of(context).size.height * 0.06,
-                              // fit: BoxFit.fill,
+                              width: MediaQuery.of(context).size.height * 0.075,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.075,
                             )),
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
-
-                              shape: CircleBorder(), //<-- SEE HERE
-                              padding: EdgeInsets.all(20),
-                            ),
-                            onPressed: () {
-                              // loading();
-                            },
-                            child: SvgPicture.asset(
+                        IconButton(
+                            // add width and hieght
+                            iconSize: MediaQuery.of(context).size.height * 0.1,
+                            onPressed: () {},
+                            icon: SvgPicture.asset(
                               'assets/apple.svg',
-                              width: MediaQuery.of(context).size.height * 0.06,
-                              height: MediaQuery.of(context).size.height * 0.06,
-                              // fit: BoxFit.fill,
+                              width: MediaQuery.of(context).size.height * 0.075,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.075,
                             )),
                       ],
                     ),

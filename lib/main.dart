@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:locare/firebase_options.dart';
 import 'package:locare/screens/login/user/user_login_view.dart';
+import 'package:locare/screens/signup/utils.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'screens/home_base.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: Utils.messengerKey,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

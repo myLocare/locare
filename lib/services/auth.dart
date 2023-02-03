@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:locare/main.dart';
 import 'package:locare/services/database.dart';
 
+import '../screens/signup/utils.dart';
+
 final formKey = GlobalKey<FormState>();
 
 Future signUp(context, String email, String password, String name, String city,
@@ -30,6 +32,7 @@ Future signUp(context, String email, String password, String name, String city,
         .updateUserData(email, name, city, phoneNumber);
   } on FirebaseAuthException catch (e) {
     print(e.toString());
+    Utils.showSnackBar(e.message);
   }
   navigatorKey.currentState!.popUntil((route) => route.isFirst);
 }
