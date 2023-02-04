@@ -178,8 +178,6 @@ class _UserSignUpViewState extends State<UserSignUpView> {
                                           phoneController.text.trim(),
                                         );
                                       }
-
-                                      // index = !index;
                                     });
                                   },
                                 ),
