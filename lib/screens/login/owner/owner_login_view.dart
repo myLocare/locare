@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,8 +9,10 @@ import 'package:locare/screens/owner_app/owner_home_body.dart';
 import 'package:locare/screens/signup/owner_signup_view.dart';
 import 'package:locare/widgets/custom_textfield.dart';
 
+import '../../../main.dart';
 import '../../../widgets/custom_button.dart';
 import '../../signup/user_signup_view.dart';
+import '../../signup/utils.dart';
 
 class OwnerLoginView extends StatefulWidget {
   const OwnerLoginView({super.key});
@@ -133,9 +136,10 @@ class _OwnerLoginViewState extends State<OwnerLoginView> {
                     CustomButton(
                       label: 'Sign In',
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => OwnerHomeBody(),
-                        ));
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        // builder: (context) => OwnerHomeBody(),
+                        // ));
+                        ownerSignIn();
                       },
                     ),
                     RichText(
@@ -261,5 +265,29 @@ class _OwnerLoginViewState extends State<OwnerLoginView> {
         ),
       )),
     );
+  }
+
+  Future ownerSignIn() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: ownerEmailController.text.trim(),
+        password: ownerPasswordController.text.trim(),
+      );
+      // get customer data from firebase and store it in the customer object
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      Utils.showSnackBar(
+        e.message!,
+      );
+    }
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

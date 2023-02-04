@@ -36,3 +36,34 @@ Future signUp(context, String email, String password, String name, String city,
   }
   navigatorKey.currentState!.popUntil((route) => route.isFirst);
 }
+
+Future ownerSignUp(context, String email, String password, String name,
+    String city, String phoneNumber) async {
+  // final isValid = formKey.currentState!.validate();
+  // if (!isValid) return;
+
+  showDialog(
+    context: context,
+    builder: (context) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    },
+  );
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password);
+    User? user = userCredential.user;
+
+    await DatabaseService(uid: user!.uid).updateOwnerData(
+      email,
+      name,
+      city,
+      phoneNumber,
+    );
+  } on FirebaseAuthException catch (e) {
+    print(e.toString());
+    Utils.showSnackBar(e.message);
+  }
+  navigatorKey.currentState!.popUntil((route) => route.isFirst);
+}

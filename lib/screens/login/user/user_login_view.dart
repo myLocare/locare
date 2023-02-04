@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:locare/screens/login/owner/owner_login_view.dart';
 import 'package:locare/screens/home_base.dart';
 import 'package:locare/screens/signup/user_signup_view.dart';
+import 'package:locare/screens/signup/utils.dart';
 import 'package:locare/widgets/custom_textfield.dart';
 
 import '../../../data/models/Customer.dart';
@@ -306,15 +307,25 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Future signIn() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: userEmailController.text.trim(),
         password: userPasswordController.text.trim(),
       );
       // get customer data from firebase and store it in the customer object
-
     } on FirebaseAuthException catch (e) {
       print(e);
+      Utils.showSnackBar(
+        e.message!,
+      );
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }

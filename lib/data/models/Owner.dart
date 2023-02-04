@@ -2,10 +2,12 @@ import 'package:locare/data/models/User.dart';
 import 'package:locare/data/models/Place.dart';
 
 class Owner extends User {
-  int ownerID;
+  // int ownerID;
   late List<Place> ownedPlaces;
+  String? ownerID;
+
   Owner(
-      {required this.ownerID,
+      {this.ownerID,
       required String name,
       required String email,
       required String phone,

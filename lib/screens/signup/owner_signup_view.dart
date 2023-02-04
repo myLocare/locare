@@ -169,7 +169,7 @@ class _OwnerSignUpViewState extends State<OwnerSignUpView> {
                                         Utils.showSnackBar(
                                             'Passwords don\'t match');
                                       } else {
-                                        signUp(
+                                        ownerSignUp(
                                           context,
                                           userEmailController.text.trim(),
                                           userPasswordController.text.trim(),
