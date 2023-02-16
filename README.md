@@ -1,16 +1,22 @@
 # locare
 
-A new Flutter project.
+Locare is an app that enable an owner of a resort or a camp to make his properties available for rent. On the other hand, it enables users to rent these properties from the owners.
 
-## Getting Started
+The app is being developed by:
+Ahmed Ali
+Jawad Aljarrash
+Yousef Alahmed
 
-This project is a starting point for a Flutter application.
+Project Progress:  
+  ![75%](https://progress-bar.dev/75)
 
-A few resources to get you started if this is your first Flutter project:
+Expected Release Date:
+4/2023
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<div>
+  <img src="https://i.ibb.co/MkfgBqt/Simulator-Screen-Shot-i-Phone-14-2023-02-16-at-10-25-28.png" alt="My cool logo" style="width: 150px"/>
+  <img src="https://i.ibb.co/Mn69MP1/Simulator-Screen-Shot-i-Phone-14-2023-02-16-at-10-25-53.png" alt="My cool logo" style="width: 150px"/>
+  <img src="https://i.ibb.co/BszTqy2/Simulator-Screen-Shot-i-Phone-14-2023-02-16-at-10-25-49.png" alt="My cool logo" style="width: 150px"/>
+  <img src="https://i.ibb.co/0mr4fxq/Simulator-Screen-Shot-i-Phone-14-2023-02-16-at-10-25-45.png" alt="My cool logo" style="width: 150px"/>
+</div>
