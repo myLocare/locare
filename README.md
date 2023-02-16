@@ -3,9 +3,13 @@
 Locare is an app that enable an owner of a resort or a camp to make his properties available for rent. On the other hand, it enables users to rent these properties from the owners.
 
 The app is being developed by:
+
 Ahmed Ali
+
 Jawad Aljarrash
+
 Yousef Alahmed
+
 
 Project Progress:  
   ![75%](https://progress-bar.dev/75)
